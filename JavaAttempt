@@ -1,0 +1,81 @@
+import java.util.Scanner;
+public class switchFunction {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		// define the strings
+		String exit ="";
+		String answer ="";
+		int level=1;
+		
+		//start the conversation
+		System.out.println("Hello would you like to conversate ? (Type OUT to exit)");
+		
+		//if the answer is OUT we quit else we keep going
+		while (!exit.equalsIgnoreCase("OUT") && level==1) {
+			answer = sc.next(); //get an input
+			
+			
+			if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
+				
+				break;
+			}
+			
+			switch(answer) {
+			case "yes": System.out.println("Okay what time is your appointment?");
+						level++;
+						break;
+			case "no": System.out.println("Okay please type OUT to exit");break;
+		
+			
+			}
+		
+				
+		 
+			
+			
+		}
+		
+		//go into level 2 of the conversation 
+		
+		while (!exit.equalsIgnoreCase("OUT") && level==2) {
+			answer = sc.next(); //get an input
+			
+			
+			if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
+				System.out.println("byy");
+				break;
+			}
+			
+			if(answer.matches("(.*)2021(.*)")){ //if answer matches a date format go to level 3 
+				System.out.println("The appointment date has been verified. Please verify your name:");
+					level++;
+					break;
+				
+			}
+			
+			else {
+				System.out.println("please enter a valid date");
+			}
+			
+		
+		
+				
+		
+			
+			
+		}
+		
+		
+		
+		
+		
+	
+		
+		System.out.println("Chat has now ended.  Thanks for the chat!");
+		
+	}
+
+}
