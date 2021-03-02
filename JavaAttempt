@@ -2,16 +2,24 @@ import java.util.Scanner;
 public class switchFunction {
 
 	public static void main(String[] args) {
+		/*
+		 * The point of this chatbot is to verify an appointment or book an appointment if no appointment is
+		 * present , levels of conversations are used to control the flow of conversation
+		 * build still early
+		 * 
+		 * 
+		 * 
+		 */
 		Scanner sc = new Scanner(System.in);
 		
 		
 		// define the strings
 		String exit ="";
 		String answer ="";
-		int level=1;
+		double level=1;
 		
 		//start the conversation
-		System.out.println("Hello would you like to conversate ? (Type OUT to exit)");
+		System.out.println("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
 		
 		//if the answer is OUT we quit else we keep going
 		while (!exit.equalsIgnoreCase("OUT") && level==1) {
@@ -24,16 +32,21 @@ public class switchFunction {
 			}
 			
 			switch(answer) {
-			case "yes": System.out.println("Okay what time is your appointment?");
+			case "yes": System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
 						level++;
 						break;
-			case "no": System.out.println("Okay please type OUT to exit");break;
+						
+			case "no":
+			System.out.println("Okay, let's get you an appointment "); 
+			break;
+			
 		
 			
 			}
 		
-				
-		 
+				//TODO: get all the info of the patient and then ask to confirm appointment or exit 
+			
+				break;
 			
 			
 		}
@@ -49,7 +62,7 @@ public class switchFunction {
 				break;
 			}
 			
-			if(answer.matches("(.*)2021(.*)")){ //if answer matches a date format go to level 3 
+			if(answer.matches("(.*)2021")){ //if answer matches a date format go to level 3 
 				System.out.println("The appointment date has been verified. Please verify your name:");
 					level++;
 					break;
@@ -63,13 +76,13 @@ public class switchFunction {
 		
 		
 				
-		
-			
+
 			
 		}
 		
 		
 		
+		//TODO: level 3-level 10 of conversation  
 		
 		
 	
