@@ -18,8 +18,9 @@ public class switchFunction {
 		String exit ="";
 		String answer ="";
 		String[] positive = {"yes","ofcourse","sure"};
-		String[] negative = {"no","ofcourse","sure"};
+		String[] negative = {"no","not yet","never"};
 		
+		// this is the first level of conversation where we ask if the customer has an appointment 
 		double level=1;
 		
 		//start the conversation
@@ -29,52 +30,52 @@ public class switchFunction {
 		while (!exit.equalsIgnoreCase("OUT") && level==1) {
 			answer = sc.nextLine(); //get an input
 			
+			//if input is "out" break the loop
+			if (answer.equalsIgnoreCase("OUT")) 
+				break;
+			
+			// we iterate through all the words in the array of positives and if we have a match we go to level 2 
+			for(String positives:positive) {
+				
+				if (answer.toLowerCase().matches("(.*)"+positives+"(.*)")){
+					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
+					level++;
+				break;
+				}
+			}
+			
+			// if we have a negation we go to level 0 and book an appointment 
+				  for(String negatives:negative) {
+						
+						if (answer.toLowerCase().matches("(.*)"+negatives+"(.*)")){
+							System.out.println("sorry to hear that let's get you an appointment booked");
+						level--;
+						}
+						break;
+					}
+				
+			}
+	   
+		// this is level 0 where the client still doesn't have an appointment and needs to get it booked
+		while (!exit.equalsIgnoreCase("OUT") && level==0) {
+			
+			
 			
 			if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
 				
 				break;
 			}
 
-//			case "no":
-//			System.out.println("Okay, let's get you an appointment "); 
-//			System.out.println("What is your name ?");
-//			fName = sc.next();
-//			break;
-//			
-//			default: 
-//		
-//			
-//			}
-			
-			for(String positives:positive) {
+			System.out.println("What is your name ?");
+			fName = sc.nextLine(); //get an input
+			//check validity
 				
-				if (answer.matches("(.*)"+positives+"(.*)")){
-					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
-					level++;
-				break;
-				}
 			}
 			
 			
-	for(String negatives:negative) {
-				
-				if (answer.regionMatches(true, 0, "(.*)"+negatives+"(.*)", 0, 0)){
-					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
-					level++;
-				break;
-				}
-			}
 		
-				//TODO: get all the info of the patient and then ask to confirm appointment or exit 
-			//System.out.println("What is your name ?");
-			
-			
-			//	break;
-			
-			
-		}
 		
-		//go into level 2 of the conversation 
+		//go into level 2 of the conversation if the appoitment is already booked and verify appointment date
 		
 		while (!exit.equalsIgnoreCase("OUT") && level==2) {
 			
