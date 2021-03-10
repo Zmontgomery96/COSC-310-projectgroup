@@ -14,8 +14,12 @@ public class switchFunction {
 		
 		
 		// define the strings
+		String fName = "";
 		String exit ="";
 		String answer ="";
+		String[] positive = {"yes","ofcourse","sure"};
+		String[] negative = {"no","ofcourse","sure"};
+		
 		double level=1;
 		
 		//start the conversation
@@ -23,30 +27,49 @@ public class switchFunction {
 		
 		//if the answer is OUT we quit else we keep going
 		while (!exit.equalsIgnoreCase("OUT") && level==1) {
-			answer = sc.next(); //get an input
+			answer = sc.nextLine(); //get an input
 			
 			
 			if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
 				
 				break;
 			}
+
+//			case "no":
+//			System.out.println("Okay, let's get you an appointment "); 
+//			System.out.println("What is your name ?");
+//			fName = sc.next();
+//			break;
+//			
+//			default: 
+//		
+//			
+//			}
 			
-			switch(answer) {
-			case "yes": System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
-						level++;
-						break;
-						
-			case "no":
-			System.out.println("Okay, let's get you an appointment "); 
-			break;
+			for(String positives:positive) {
+				
+				if (answer.matches("(.*)"+positives+"(.*)")){
+					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
+					level++;
+				break;
+				}
+			}
 			
-		
 			
+	for(String negatives:negative) {
+				
+				if (answer.regionMatches(true, 0, "(.*)"+negatives+"(.*)", 0, 0)){
+					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
+					level++;
+				break;
+				}
 			}
 		
 				//TODO: get all the info of the patient and then ask to confirm appointment or exit 
+			//System.out.println("What is your name ?");
 			
-				break;
+			
+			//	break;
 			
 			
 		}
@@ -54,11 +77,11 @@ public class switchFunction {
 		//go into level 2 of the conversation 
 		
 		while (!exit.equalsIgnoreCase("OUT") && level==2) {
+			
 			answer = sc.next(); //get an input
 			
 			
 			if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
-				System.out.println("byy");
 				break;
 			}
 			
