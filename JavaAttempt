@@ -69,7 +69,8 @@ public class switchFunction {
 			System.out.println("What is your name ?");
 			fName = sc.nextLine(); //get an input
 			//check validity
-				
+			System.out.println("Hello, "+ fName);
+			level--;
 			}
 			
 			
