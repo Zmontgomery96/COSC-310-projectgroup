@@ -3,7 +3,6 @@ package chatBot;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.graalvm.compiler.nodes.NodeView.Default;
 public class Main extends synonymAPI   {
 	
 	
@@ -269,10 +268,22 @@ public class Main extends synonymAPI   {
 		System.out.println("Thank you for participating in our service review! Do you have any last comments/suggestions you'd like to make?");
 		
 		answer = sc.nextLine();
-		
+		sc.close();
 		return;
 	}
-	
+	static void showListWith(patient p){
+		int counter = 0;
+		patientQ.add(p1);
+		patientQ.add(p2);
+		patientQ.add(p3);
+		patientQ.add(p);
+		Iterator<patient> itr = patientQ.iterator();
+
+		while(itr.hasNext()) {
+			counter++;
+			System.out.println("Week " + counter + ", Patient Name: "+patientQ.peek().getFirst_name()+", Patient Last Name:  "+patientQ.poll().getLast_name());
+		}
+	}
 	
 	static boolean validate(String first) {
 	if(first.length()>1 && first.length()<17) {
@@ -303,7 +314,7 @@ public class Main extends synonymAPI   {
 		// define the strings. TODO store data in csv instead of multiple strings
 		boolean conversation = true; 
 		boolean proceed =false;
-		int counter =0;
+		patient user = new patient();
 		int pain =0;
 		String dob ="";
 		boolean isValid= false;
@@ -323,6 +334,7 @@ public class Main extends synonymAPI   {
 		negative = synonyms("no");
 		// this is the first level of conversation where we ask if the customer has an appointment 
 		int level=0;
+		
 		
 		
 		System.out.println("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
@@ -360,7 +372,7 @@ public class Main extends synonymAPI   {
 		case 1: // First name
 			fName = answer;
 			fName.trim();
-			fName = fName.substring(0, 1).toUpperCase() + fName.substring(1);
+			fName = fName.substring(0, 1).toUpperCase() + fName.substring(1).toLowerCase();
 			
 			isValid= validate(fName);
 			if (!isValid) {
@@ -368,6 +380,7 @@ public class Main extends synonymAPI   {
 			}else {
 				System.out.println("Thanks " + fName + ", what is your family name ?");
 				level =2;
+				user.setFirst_name(fName);
 			}
 			break;
 		case 2: // Last Name
@@ -377,6 +390,7 @@ public class Main extends synonymAPI   {
 				System.out.println("Sorry your input wasn't valid. Try that again");
 			}
 			else { System.out.println("Thanks for that info, let's move on to your date of birth: ");
+			user.setLast_name(sName);
 				level=3;
 				}
 			break;
@@ -388,6 +402,7 @@ public class Main extends synonymAPI   {
 			}
 			else{
 			System.out.println("Thanks, if you had to describe your level of pain from 1 to 10 what would it be?");	
+			user.setBirthdate(dob);
 			level =4;
 			}
 			break;
@@ -400,6 +415,7 @@ public class Main extends synonymAPI   {
 			if(pain>10||pain<1) {
 				System.out.println("Please enter an integer from 1-10");
 			}else {	
+				user.setPriority(pain);
 				level=5;
 				System.out.println("Can you give a brief description of your symptoms?");
 				}
@@ -426,14 +442,20 @@ public class Main extends synonymAPI   {
 			if(!(drSexPreference.matches("male(.*)") || drSexPreference.matches("female(.*)"))) {
 				System.out.println("Please answer either 'male' or 'female'");
 			}else {
+				
+		
+				
 				System.out.println("Sounds good. Do you have a family doctor?" );
 				level =9;		
+
 			}
 			break;
 		case 9: // branch for get family doctor if no family doctor end chat
 		
 			if(answer.matches("(.*)no(.*)")) {
 				System.out.println("Okay, thank you for specifying that.  All the info we need is now complete.");
+				showListWith(user);
+				System.out.println("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
 				conversation= false;
 				break;
 				
@@ -449,6 +471,8 @@ public class Main extends synonymAPI   {
 			if(!familyDoctor.toLowerCase().matches("dr.(.*)")) {
 				System.out.println("Please enter a valid family doctors name (Dr. ..)");
 			}else {
+				showListWith(user);
+				System.out.println("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
 				System.out.println("Thank you for using our service.");
 					conversation= false;
 					break;
@@ -483,17 +507,6 @@ public class Main extends synonymAPI   {
 		
 		//after we get all the info we create a new patient and place them in priority que
 		
-		patient user = new patient(fName,sName,dob,pain);
-		
-		patientQ.add(p1);
-		patientQ.add(p2);
-		patientQ.add(p3);
-		patientQ.add(user);
-		Iterator<patient> itr = patientQ.iterator();
-		while(itr.hasNext()) {
-			counter++;
-			System.out.println("Week " + counter + ", Patient Name: "+patientQ.poll().getFirst_name()+"Patient Last Name:  "+patientQ.poll().getLast_name());
-		}
 		
 		
 		// let the user now where they stand in the queue
@@ -514,7 +527,7 @@ public class Main extends synonymAPI   {
 		System.out.println("Chat has now ended. Thanks for the chat! Feel free to say thank you to our bot.");
 		
 		end = sc.nextLine();
-		
+		sc.close();
 		System.out.println("Goodbye :)");
 		
 		
