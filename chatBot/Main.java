@@ -61,7 +61,7 @@ public class Main extends synonymAPI   {
 				
 		for(String positives:positive) {
 				
-			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)yes(.*)")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Great to hear! Do you think you'll come back?");
 				match[n] = true;
 				break;
@@ -69,7 +69,7 @@ public class Main extends synonymAPI   {
 		}
 		for(String negatives:negative) {
 			
-			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
 				System.out.println("There's a first for everything! Do you think you'll come back?");
 				match[n] = true;
 				break;
@@ -92,7 +92,7 @@ public class Main extends synonymAPI   {
 				
 		for(String positives:positive) {
 				
-			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)yes(.*)")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Awesome! Would you recommend our service to friends and family?");
 				match[n] = true;
 				break;
@@ -100,7 +100,7 @@ public class Main extends synonymAPI   {
 		}
 		for(String negatives:negative) {
 				
-			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
 				System.out.println("Oh no! ): Would you recommend our service to friends and family?");
 				match[n] = true;
 				break;
@@ -132,7 +132,7 @@ public class Main extends synonymAPI   {
 				
 		for(String positives:positive) {
 				
-			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)yes(.*)")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Great! Is there any way we could make this easier the next time?");
 				match[n] = true;
 				break;
@@ -140,7 +140,7 @@ public class Main extends synonymAPI   {
 		}
 		for(String negatives:negative) {
 				
-			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
 				System.out.println("Is there any way we could fix this for you?");
 				match[n] = true;
 				break;
@@ -177,7 +177,7 @@ public class Main extends synonymAPI   {
 				
 		for(String positives:positive) {
 				
-			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)yes(.*)")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("What made you feel this way?");
 				match[n] = true;
 				break;
@@ -185,7 +185,7 @@ public class Main extends synonymAPI   {
 		}
 		for(String negatives:negative) {
 				
-			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
 				System.out.println("How can we improve this?");
 				match[n] = true;
 				break;
@@ -212,7 +212,7 @@ public class Main extends synonymAPI   {
 		//This response determines if the user would like to continue the survey. If they respond "no" or some variation this will allow the user to escape the survey and end the chat.
 		for(String negatives:negative) {
 				
-			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
 				correct = false;
 				break;
 			}
@@ -237,7 +237,7 @@ public class Main extends synonymAPI   {
 				
 		for(String positives:positive) {
 				
-			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)yes(.*)")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Great! Do you have any suggestions for a more efficient method?");
 				match[n] = true;
 				break;
@@ -245,7 +245,7 @@ public class Main extends synonymAPI   {
 		}
 		for(String negatives:negative) {
 				
-			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
 				System.out.println("Do you have any suggestions to create a speedier experience for you next time?");
 				match[n] = true;
 				break;
@@ -264,7 +264,7 @@ public class Main extends synonymAPI   {
 			
 		for(String positives:positive) {
 				
-			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
+			if (yn.equalsIgnoreCase("(.*)yes(.*)")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Rate our service today on a scale of 1-10 (1 being poor and 10 being amazing)");
 					
 				answer = sc.nextLine();
