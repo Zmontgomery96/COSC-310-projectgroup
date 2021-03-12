@@ -38,6 +38,7 @@ public class Main extends synonymAPI   {
 		
 		
 		// define the strings
+		boolean conversation = true; 
 		int pain =0;
 		String dob ="";
 		boolean isValid= false;
@@ -55,6 +56,10 @@ public class Main extends synonymAPI   {
 		System.out.println("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
 		
 		//if the answer is OUT we quit else we keep going
+		//main conversation loop for error prevention
+		while (!answer.equalsIgnoreCase("OUT")||conversation) {
+			
+		
 		while (!answer.equalsIgnoreCase("OUT") && level==0) {
 			answer = sc.nextLine(); //get an input
 			
@@ -73,15 +78,15 @@ public class Main extends synonymAPI   {
 			}
 			
 			// if we have a negation we go to level 0 and book an appointment 
-				  for(String negatives:negative) {
+			for(String negatives:negative) {
 						
-						if (answer.equalsIgnoreCase("no")||answer.matches("(.*)"+negatives+"(.*)")){
-							System.out.println("Sorry to hear that let's get you an appointment booked !");
-						
-						level++;
-						}
-						break;
+				if (answer.equalsIgnoreCase("no")||answer.matches("(.*)"+negatives+"(.*)")){
+					System.out.println("Sorry to hear that let's get you an appointment booked !");
+					
+					level++;
 					}
+					break;
+				}
 				
 			}
 	   
@@ -215,6 +220,8 @@ public class Main extends synonymAPI   {
 			System.out.println("Patient: "+patientQ.poll().getFirst_name());
 		}
 		
+		//convo loop end
+		}
 		// let the user now where they stand in the queue
 		
 		System.out.println("Chat has now ended.  Thanks for the chat!");
