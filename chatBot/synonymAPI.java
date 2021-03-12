@@ -42,7 +42,7 @@ public class synonymAPI {
 		
 		
 		
-		//This loops is to separate our synonyms into into different array indexes
+		//This loop is to separate our synonyms into different array indexes
 		while(hold.contains("\"")) {
 			end = hold.indexOf("\"", 1);
 			
@@ -56,7 +56,7 @@ public class synonymAPI {
 			i++;
 			
 			
-		//These exceptions/if statements are specific to the format of the string that we receive from this API, it will not function properly with others
+		//These exceptions/if statements are specific to the format of the string that we receive from this API, it will not function properly with other APIs attempting the same thing
 			if(hold.contains("[") && hold.indexOf("[", 1) < 2) {
 				hold = hold.substring(2);
 			}
@@ -75,7 +75,7 @@ public class synonymAPI {
 		String[] test = new String[100];
 		int i = 0;
 		
-		test = synonyms("no");
+		test = synonyms("yes");
 		
 		
 		while(test[i] != null) {

@@ -12,6 +12,9 @@ public class Main extends synonymAPI   {
 	static patient p3 = new patient("Michael","Bisping","2020",4);
 
 	static void review() {
+		int n = 0;
+		boolean correct = true;
+		boolean match[] = new boolean [30];
 		String yn = "";
 		String answer = "";
 		String[] positive = new String[50];
@@ -21,41 +24,82 @@ public class Main extends synonymAPI   {
 		
 		Scanner sc = new Scanner(System.in);
 		
+		for(int i = 0; i < match.length; i++) {
+			match[i] = false;
+		}
+		
 		while (!answer.equalsIgnoreCase("OUT")||!yn.equalsIgnoreCase("OUT")){
 			
 		System.out.println("Quick notice before we begin: Do you mind if we attach your personal information along with your review? (Yes to stay anonymous; No to allow us to associate this with your personal information");
 		yn = sc.nextLine();
 		
 		
-		System.out.println("Thanks for participating in our review! Have you been here with us before today? (Type OUT to exit)");
+		System.out.println("Thanks for participating in our review! Have you been here with us before today?");
 		
 		yn = sc.nextLine();
 		
+		while(!match[n]) {
+			
+			if(!correct) {
+				System.out.println("Invalid input, try again.");
+				yn = sc.nextLine();
+			}
+			
 		for(String positives:positive) {
 			
 			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Great to hear! Do you think you'll come back?");
-			}
-			else {
-				System.out.println("There's a first for everything! Do you think you'll come back?");
+				match[n] = true;
+				break;
 			}
 		}
+		for(String negatives:negative) {
+			
+			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+				System.out.println("There's a first for everything! Do you think you'll come back?");
+				match[n] = true;
+				break;
+			}
+		}
+		correct = false;
+		}
+		n++;
+		correct = true;
 		
 		yn = sc.nextLine();
 		
+		
+		while(!match[n]) {
+			
+			if(!correct) {
+				System.out.println("Invalid input, try again.");
+				yn = sc.nextLine();
+			}
+			
 		for(String positives:positive) {
 			
 			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Awesome! Would you recommend our service to friends and family?");
-			}
-			else {
-				System.out.println("Oh no! ): Would you recommend our service to friends and family?");
+				match[n] = true;
+				break;
 			}
 		}
+		for(String negatives:negative) {
+			
+			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+				System.out.println("Oh no! ): Would you recommend our service to friends and family?");
+				match[n] = true;
+				break;
+			}
+		}
+		correct = false;
+		}
+		n++;
+		correct = true;
 		
 		yn = sc.nextLine();
 		
-		System.out.println("Are there any recommendations you'd like to make in order for us to make your experience better next time? (Type OUT to exit)");
+		System.out.println("Are there any recommendations you'd like to make in order for us to make your experience better next time?");
 		
 		answer = sc.nextLine();
 		
@@ -64,20 +108,39 @@ public class Main extends synonymAPI   {
 		
 		yn = sc.nextLine();
 		
+		
+		while(!match[n]) {
+			
+			if(!correct) {
+				System.out.println("Invalid input, try again.");
+				yn = sc.nextLine();
+			}
+			
 		for(String positives:positive) {
 			
 			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Great! Is there any way we could make this easier the next time?");
-			}
-			else {
-				System.out.println("Is there any way we could fix this for you?");
+				match[n] = true;
+				break;
 			}
 		}
+		for(String negatives:negative) {
+			
+			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+				System.out.println("Is there any way we could fix this for you?");
+				match[n] = true;
+				break;
+			}
+		}
+		correct = false;
+		}
+		n++;
+		correct = true;
 		
 		answer = sc.nextLine();
 		
 		System.out.println("We'll be sure to take any suggestions into consideration!");
-		System.out.println("Did you feel you were safe while you were in our care? (Type OUT to exit)");
+		System.out.println("Did you feel you were safe while you were in our care?");
 		
 		yn = sc.nextLine();
 		
@@ -90,20 +153,39 @@ public class Main extends synonymAPI   {
 		
 		yn = sc.nextLine();
 		
+		
+		while(!match[n]) {
+			
+			if(!correct) {
+				System.out.println("Invalid input, try again.");
+				yn = sc.nextLine();
+			}
+			
 		for(String positives:positive) {
 			
 			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("What made you feel this way?");
-			}
-			else {
-				System.out.println("How can we improve this?");
+				match[n] = true;
+				break;
 			}
 		}
+		for(String negatives:negative) {
+			
+			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+				System.out.println("How can we improve this?");
+				match[n] = true;
+				break;
+			}
+		}
+		correct = false;
+		}
+		n++;
+		correct = true;
 		
 		answer = sc.nextLine();
 		
 		System.out.println("This \'bot\' thanks you for your cooperation! :)");
-		System.out.println("Do you have any general complaints at all from you experience here? (Type OUT to exit)");
+		System.out.println("Do you have any general complaints at all from you experience here?");
 		
 		answer = sc.nextLine();
 		
@@ -115,8 +197,13 @@ public class Main extends synonymAPI   {
 		for(String negatives:negative) {
 			
 			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
-				answer = "OUT";
+				correct = false;
+				break;
 			}
+		}
+		
+		if(!correct) {
+			return;
 		}
 		
 		System.out.println("Great! We'll continue on with the service review. You're almost done!");
@@ -124,15 +211,34 @@ public class Main extends synonymAPI   {
 		
 		yn = sc.nextLine();
 		
+		
+		while(!match[n]) {
+			
+			if(!correct) {
+				System.out.println("Invalid input, try again.");
+				yn = sc.nextLine();
+			}
+			
 		for(String positives:positive) {
 			
 			if (yn.equalsIgnoreCase("yes")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Great! Do you have any suggestions for a more efficient method?");
-			}
-			else {
-				System.out.println("Do you have any suggestions to create a speedier experience for you next time?");
+				match[n] = true;
+				break;
 			}
 		}
+		for(String negatives:negative) {
+			
+			if (yn.equalsIgnoreCase("no")||yn.matches("(.*)"+negatives+"(.*)")){
+				System.out.println("Do you have any suggestions to create a speedier experience for you next time?");
+				match[n] = true;
+				break;
+			}
+		}
+		correct = false;
+		}
+		n++;
+		correct = true;
 		
 		answer = sc.nextLine();
 		
@@ -150,15 +256,21 @@ public class Main extends synonymAPI   {
 				System.out.println("Are there any specific reasons you gave us the score you did today?");
 				
 				answer = sc.nextLine();
+				break;
 			}
 		}
+		
+		break;
 		
 		}
 		
 		System.out.println("Thank you for participating in our service review! Do you have any last comments/suggestions you'd like to make?");
 		
 		answer = sc.nextLine();
+		
+		return;
 	}
+	
 	
 	static boolean validate(String first) {
 	if(first.length()>1 && first.length()<17) {
@@ -377,6 +489,8 @@ public class Main extends synonymAPI   {
 			
 			if (review.equalsIgnoreCase("yes")||review.matches("(.*)"+positives+"(.*)")){
 				review();
+				review = "no";
+				break;
 			}
 		}
 		
