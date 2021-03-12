@@ -2,6 +2,8 @@ package chatBot;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import org.graalvm.compiler.nodes.NodeView.Default;
 public class Main extends synonymAPI   {
 	
 	
@@ -189,6 +191,7 @@ public class Main extends synonymAPI   {
 		// define the strings. TODO store data in csv instead of multiple strings
 		boolean conversation = true; 
 		boolean proceed =false;
+		int counter =0;
 		int pain =0;
 		String dob ="";
 		boolean isValid= false;
@@ -223,7 +226,7 @@ public class Main extends synonymAPI   {
 			// we iterate through all the words in the array of positives and if we have a match we go to level 2 
 			for(String positives:positive) {
 				
-				if (answer.equalsIgnoreCase("yes")||answer.matches("(.*)"+positives+"(.*)")){
+				if (answer.matches("(.*)yes(.*)")||answer.matches("(.*)"+positives+"(.*)")){
 					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
 					level=30;
 				break;
@@ -233,7 +236,7 @@ public class Main extends synonymAPI   {
 			// if we have a negation we go to level 0 and book an appointment 
 			for(String negatives:negative) {
 						
-				if (answer.equalsIgnoreCase("no")||answer.matches("(.*)"+negatives+"(.*)")){
+				if (answer.matches("(.*)no(.*)")||answer.matches("(.*)"+negatives+"(.*)")){
 					System.out.println("Sorry to hear that let's get you an appointment booked !");
 					
 					level =1;
@@ -278,7 +281,10 @@ public class Main extends synonymAPI   {
 			break;
 			
 		case 4: // Amount of pain
-			pain = Integer.parseInt(answer); 
+		try{
+			pain = Integer.parseInt(answer); }
+			catch(Exception e ){System.out.println("Sorry, something went wrong please try again.");
+			break;}
 			if(pain>10||pain<1) {
 				System.out.println("Please enter an integer from 1-10");
 			}else {	
@@ -289,7 +295,7 @@ public class Main extends synonymAPI   {
 		case 5: // Symptoms
 			symptomsSentence = answer;
 			level =6;
-			System.out.println("If you are having multiple symptoms, which is bothering you the most?");
+			System.out.println("If you are having multiple symptoms, which is bothering you the most? (if not please type 'none')");
 			break;
 		case 6: //Which is the worse symptom
 			worseSymptom = answer;
@@ -298,23 +304,29 @@ public class Main extends synonymAPI   {
 			level =7;
 			break;
 		case 7: // get duration of symptoms
-			durationOfSymptoms = Integer.parseInt(answer);
+		try{
+			durationOfSymptoms = Integer.parseInt(answer);}
+			catch (Exception e ){System.out.println("Sorry, something went wrong please enter the number of days again.");break;}
 			System.out.println("Okay. Would you prefer a male or female doctor?");
 			level =8;
 		case 8:// gets dr sex preference, please dont cancel me TODO remove <-
 			drSexPreference = answer;
-			if(!(drSexPreference.equalsIgnoreCase("male") || drSexPreference.equalsIgnoreCase("female"))) {
-				System.out.println("Please answer either male or female");
+			if(!(drSexPreference.matches("male(.*)") || drSexPreference.matches("female(.*)"))) {
+				System.out.println("Please answer either 'male' or 'female'");
 			}else {
 				System.out.println("Sounds good. Do you have a family doctor?" );
 				level =9;		
 			}
 			break;
-		case 9: // branch for get family doctor
-			if(answer.equalsIgnoreCase("no")) {
-				level=10;
-				System.out.println("Okay. How many days have you experienced these symptoms?");
-			}else if(answer.equalsIgnoreCase("yes")) {
+		case 9: // branch for get family doctor if no family doctor end chat
+		
+			if(answer.matches("(.*)no(.*)")) {
+				System.out.println("Okay, thank you for specifying that.  All the info we need is now complete.");
+				conversation= false;
+				break;
+				
+			}
+			else if(answer.equalsIgnoreCase("yes")) {
 				level =10;
 				System.out.println("What is your family doctors name?");
 			}
@@ -326,14 +338,14 @@ public class Main extends synonymAPI   {
 				System.out.println("Please enter a valid family doctors name (Dr. ..)");
 			}else {
 				System.out.println("Thank you for using our service.");
-				conversation = false;
-				break;
+					conversation= false;
+					break;
 			}
 			System.out.println();
 			break;
 		case 11:// extra method in case we add more.
 			break;
-		case 30: // TODO Add more verfication 
+		case 30: // TODO: Add more verfication 
 			if(answer.matches("(.*)2021")){ //if answer matches a date format go to level 3 
 				System.out.println("The appointment date has been verified. Thank you for confirming using our service.");
 					level++;
@@ -345,7 +357,11 @@ public class Main extends synonymAPI   {
 				System.out.println("please enter a valid date");
 			}
 			break;
-			
+
+
+		//exit case
+			case -1 : System.out.println("Thank you for using our service.");
+					conversation= false;break;
 		}
 		
 	
@@ -363,7 +379,8 @@ public class Main extends synonymAPI   {
 		patientQ.add(user);
 		Iterator<patient> itr = patientQ.iterator();
 		while(itr.hasNext()) {
-			System.out.println("Patient: "+patientQ.poll().getFirst_name());
+			counter++;
+			System.out.println("Week " + counter + ", Patient Name: "+patientQ.poll().getFirst_name()+"Patient Last Name:  "+patientQ.poll().getLast_name());
 		}
 		
 		
@@ -375,7 +392,7 @@ public class Main extends synonymAPI   {
 		
 		for(String positives:positive) {
 			
-			if (review.equalsIgnoreCase("yes")||review.matches("(.*)"+positives+"(.*)")){
+			if (review.matches("(.*)yes(.*)")||review.matches("(.*)"+positives+"(.*)")){
 				review();
 			}
 		}
