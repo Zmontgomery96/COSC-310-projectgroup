@@ -317,15 +317,13 @@ public class Main extends synonymAPI   {
 				}
 		
 	}
-	public static void main(String[] args) {
-		/*
+	/*
 		 * The point of this chatbot is to verify an appointment or book an appointment if no appointment is
 		 * present , levels of conversations are used to control the flow of conversation
-		 * build still early
-		 * 
-		 * 
-		 * 
+		 * build is still in early production.
 		 */
+	public static void main(String[] args) {
+		
 		Scanner sc = new Scanner(System.in);
 		
 		
@@ -350,22 +348,25 @@ public class Main extends synonymAPI   {
 		positive = synonyms("yes");
 		String[] negative = new String[50];
 		negative = synonyms("no");
-		// this is the first level of conversation where we ask if the customer has an appointment 
+		
 		int level=0;
 		
 		
 		
 		System.out.println("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
 		
+		// main conversation loop
 		while (conversation) {
 			answer = sc.nextLine();
 			
 			if(answer.equalsIgnoreCase("OUT")) {
 				break;
 			}
-		switch(level) {
-		case 0:
-			// we iterate through all the words in the array of positives and if we have a match we go to level 2 
+			
+		switch(level) {// Switch statement that determines levels of dialogue during main conversation
+		
+		case 0:// this is the first level of conversation where we ask if the customer has an appointment 
+			// we iterate through all the words in the array of positives and if we have a match we go to level 1 
 			for(String positives:positive) {
 				
 				if (answer.matches("(.*)yes(.*)")||answer.matches("(.*)"+positives+"(.*)")){
@@ -373,9 +374,8 @@ public class Main extends synonymAPI   {
 					level=30;
 				break;
 				}
-			}
-			
-			// if we have a negation we go to level 0 and book an appointment 
+			}	
+			// if we have a negative we go to level 0 and book an appointment 
 			for(String negatives:negative) {
 						
 				if (answer.matches("(.*)no(.*)")||answer.matches("(.*)"+negatives+"(.*)")){
@@ -387,7 +387,8 @@ public class Main extends synonymAPI   {
 					break;
 				}
 				break;
-		case 1: // First name
+				
+		case 1: //Gets First name
 			fName = answer;
 			fName.trim();
 			fName = fName.substring(0, 1).toUpperCase() + fName.substring(1).toLowerCase();
@@ -401,7 +402,8 @@ public class Main extends synonymAPI   {
 				user.setFirst_name(fName);
 			}
 			break;
-		case 2: // Last Name
+			
+		case 2: // Gets Last Name
 			sName = answer;
 			isValid = validate(sName);
 			if (!isValid) {
@@ -412,10 +414,11 @@ public class Main extends synonymAPI   {
 				level=3;
 				}
 			break;
-		case 3: // Date of birth
+			
+		case 3: // Gets Date of birth
 			dob = answer;
 			if(false) {
-				// !dob.isValid TODO
+				// !dob.isValid TODO: verify date of birth 
 				System.out.println("Please enter a valid birth date");
 			}
 			else{
@@ -425,7 +428,7 @@ public class Main extends synonymAPI   {
 			}
 			break;
 			
-		case 4: // Amount of pain
+		case 4: // Gets pain level
 		try{
 			pain = Integer.parseInt(answer); }
 			catch(Exception e ){System.out.println("Sorry, something went wrong please try again.");
@@ -438,40 +441,41 @@ public class Main extends synonymAPI   {
 				System.out.println("Can you give a brief description of your symptoms?");
 				}
 			break;
+			
 		case 5: // Symptoms
 			symptomsSentence = answer;
 			level =6;
 			System.out.println("If you are having multiple symptoms, which is bothering you the most? (if not please type 'none')");
 			break;
+			
 		case 6: //Which is the worse symptom
 			worseSymptom = answer;
 			System.out.println("If you are having chest pains, trouble breathing, severe bleeding, or extreme dizziness, please stop using this bot and Call 911.");
 			System.out.println("How many days have you experienced these symptoms?");
 			level =7;
 			break;
+			
 		case 7: // get duration of symptoms
 		try{
 			durationOfSymptoms = Integer.parseInt(answer);}
 			catch (Exception e ){System.out.println("Sorry, something went wrong please enter the number of days again.");break;}
 			System.out.println("Okay. Would you prefer a male or female doctor?");
 			level =8;
-		case 8:// gets dr sex preference, please dont cancel me TODO remove <-
+			
+		case 8:// gets dr sex/gender preference
 			drSexPreference = answer;
 			if(!(drSexPreference.matches("male(.*)") || drSexPreference.matches("female(.*)"))) {
 				System.out.println("Please answer either 'male' or 'female'");
-			}else {
-				
-		
-				
+			}else {	
 				System.out.println("Sounds good. Do you have a family doctor?" );
-				level =9;		
-
+				level =9;	
 			}
 			break;
+			
 		case 9: // branch for get family doctor if no family doctor end chat
 		
 			if(answer.matches("(.*)no(.*)")) {
-				System.out.println("Okay, thank you for specifying that.  All the info we need is now complete.");
+				System.out.println("Okay, thank you for specifying that. We have all of the information that we need.");
 				showListWith(user);
 				System.out.println("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
 				conversation= false;
@@ -484,6 +488,7 @@ public class Main extends synonymAPI   {
 			}
 			System.out.println();
 			break;
+			
 		case 10: // get family doctors name
 			familyDoctor = answer;
 			if(!familyDoctor.toLowerCase().matches("dr.(.*)")) {
@@ -497,37 +502,28 @@ public class Main extends synonymAPI   {
 			}
 			System.out.println();
 			break;
+			
 		case 11:// extra method in case we add more.
 			break;
+			
 		case 30: // TODO: Add more verfication 
 			if(answer.matches("(.*)2021")){ //if answer matches a date format go to level 3 
 				System.out.println("The appointment date has been verified. Thank you for confirming using our service.");
 					level++;
 					conversation = false;
 					break;
-			}
-			
-			else {
+			}else {
 				System.out.println("please enter a valid date");
-			}
+				}
 			break;
-
-
+			
 		//exit case
 			case -1 : System.out.println("Thank you for using our service.");
 					conversation= false;break;
 		}
-		
-	
-		//convo loop end
-		}
-		
-		
-		//after we get all the info we create a new patient and place them in priority que
-		
-		
-		
-		// let the user now where they stand in the queue
+
+		//conversation while-loop end
+		}	
 		
 		System.out.println("Would you like to participate in our quick service review and let us know how we did?");
 		
@@ -543,7 +539,6 @@ public class Main extends synonymAPI   {
 		}
 		
 		System.out.println("Chat has now ended. Thanks for the chat! Feel free to say thank you to our bot.");
-		
 		end = sc.nextLine();
 		sc.close();
 		System.out.println("Goodbye :)");
