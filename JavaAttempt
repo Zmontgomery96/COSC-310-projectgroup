@@ -1,6 +1,20 @@
-import java.util.Scanner;
-public class switchFunction {
-
+import java.util.*;
+public class switchFunction extends example {
+	
+	static boolean validate(String first) {
+	if(first.length()>1 && first.length()<17) {
+				
+			
+			return true;
+			
+			}
+			
+			
+			else {
+				return false;
+				}
+		
+	}
 	public static void main(String[] args) {
 		/*
 		 * The point of this chatbot is to verify an appointment or book an appointment if no appointment is
@@ -14,12 +28,15 @@ public class switchFunction {
 		
 		
 		// define the strings
+		boolean isValid= false;
 		String fName = "";
+		String sName= "";
 		String exit ="";
 		String answer ="";
-		String[] positive = {"yes","ofcourse","sure"};
-		String[] negative = {"no","not yet","never"};
-		
+		String[] positive = new String[50];
+		positive = synonyms("yes");
+		String[] negative = new String[50];
+		negative = synonyms("no");
 		// this is the first level of conversation where we ask if the customer has an appointment 
 		double level=1;
 		
@@ -37,7 +54,7 @@ public class switchFunction {
 			// we iterate through all the words in the array of positives and if we have a match we go to level 2 
 			for(String positives:positive) {
 				
-				if (answer.toLowerCase().matches("(.*)"+positives+"(.*)")){
+				if (answer.equalsIgnoreCase("yes")||answer.matches("(.*)"+positives+"(.*)")){
 					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
 					level++;
 				break;
@@ -47,8 +64,8 @@ public class switchFunction {
 			// if we have a negation we go to level 0 and book an appointment 
 				  for(String negatives:negative) {
 						
-						if (answer.toLowerCase().matches("(.*)"+negatives+"(.*)")){
-							System.out.println("sorry to hear that let's get you an appointment booked");
+						if (answer.equalsIgnoreCase("no")||answer.matches("(.*)"+negatives+"(.*)")){
+							System.out.println("Sorry to hear that let's get you an appointment booked !");
 						level--;
 						}
 						break;
@@ -66,11 +83,38 @@ public class switchFunction {
 				break;
 			}
 
-			System.out.println("What is your name ?");
-			fName = sc.nextLine(); //get an input
-			//check validity
-			System.out.println("Hello, "+ fName);
-			level--;
+			System.out.println("Please enter your first name below: ");
+			
+			fName = sc.nextLine(); 
+			
+			fName.trim();
+			fName = fName.substring(0, 1).toUpperCase() + fName.substring(1);
+			if(fName.equalsIgnoreCase("OUT")) {
+				break;
+			}
+			
+			isValid= validate(fName);
+			if (!isValid) {
+				System.out.println("Sorry your input wasn't valid. Try that again");
+			}
+			else {
+			
+				System.out.println("Thanks " + fName + ", what is your family name ?");
+				sName = sc.nextLine();
+				if(sName.equalsIgnoreCase("OUT")) {
+					break;
+				}
+				isValid = validate(sName);
+				if (!isValid) {
+					System.out.println("Sorry your input wasn't valid. Try that again");
+				}
+				else { System.out.println("Thanks for that info, let's move on to your date of birth!");
+					level++;}
+				
+			}
+		
+		
+			
 			}
 			
 			
