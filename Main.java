@@ -1,6 +1,8 @@
+package chatBot;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
-public class switchFunction extends example   {
+public class Main extends synonymAPI   {
 	
 	
 	
