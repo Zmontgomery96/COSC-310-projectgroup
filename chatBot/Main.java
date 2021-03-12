@@ -10,7 +10,7 @@ public class Main extends synonymAPI   {
 	static patient p1 = new patient("Jon","Jones","2020",2);
 	static patient p2 = new patient("Daniel","Cormier","2020",3);
 	static patient p3 = new patient("Michael","Bisping","2020",4);
-//test
+
 	static void review() {
 		String yn = "";
 		String answer = "";
