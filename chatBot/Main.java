@@ -186,8 +186,9 @@ public class Main extends synonymAPI   {
 		Scanner sc = new Scanner(System.in);
 		
 		
-		// define the strings
+		// define the strings. TODO store data in csv instead of multiple strings
 		boolean conversation = true; 
+		boolean proceed =false;
 		int pain =0;
 		String dob ="";
 		boolean isValid= false;
@@ -196,34 +197,35 @@ public class Main extends synonymAPI   {
 		String answer ="";
 		String end = "";
 		String review = "";
+		String symptomsSentence ="";
+		String worseSymptom = "";
+		int durationOfSymptoms = 0;
+		String drSexPreference ="";
+		String familyDoctor ="";
 		String[] positive = new String[50];
 		positive = synonyms("yes");
 		String[] negative = new String[50];
 		negative = synonyms("no");
 		// this is the first level of conversation where we ask if the customer has an appointment 
-		double level=0;
+		int level=0;
 		
-		//start the conversation
+		
 		System.out.println("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
 		
-		//if the answer is OUT we quit else we keep going
-		//main conversation loop for error prevention
-		while (!answer.equalsIgnoreCase("OUT")||conversation) {
+		while (conversation) {
+			answer = sc.nextLine();
 			
-		
-		while (!answer.equalsIgnoreCase("OUT") && level==0) {
-			answer = sc.nextLine(); //get an input
-			
-			//if input is "out" break the loop
-			if (answer.equalsIgnoreCase("OUT")) 
+			if(answer.equalsIgnoreCase("OUT")) {
 				break;
-			
+			}
+		switch(level) {
+		case 0:
 			// we iterate through all the words in the array of positives and if we have a match we go to level 2 
 			for(String positives:positive) {
 				
 				if (answer.equalsIgnoreCase("yes")||answer.matches("(.*)"+positives+"(.*)")){
 					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
-					level=10;
+					level=30;
 				break;
 				}
 			}
@@ -234,128 +236,119 @@ public class Main extends synonymAPI   {
 				if (answer.equalsIgnoreCase("no")||answer.matches("(.*)"+negatives+"(.*)")){
 					System.out.println("Sorry to hear that let's get you an appointment booked !");
 					
-					level++;
+					level =1;
+					System.out.println("Please enter your first name below: ");
 					}
 					break;
 				}
-				
-			}
-	   
-		// this is level 1 where the client still doesn't have an appointment and needs to get it booked
-		while (!answer.equalsIgnoreCase("OUT") && level==1) {
-			
-			
-			
-			if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
-				
 				break;
-			}
-
-			System.out.println("Please enter your first name below: ");
-			
-			fName = sc.nextLine(); 
-			
+		case 1: // First name
+			fName = answer;
 			fName.trim();
 			fName = fName.substring(0, 1).toUpperCase() + fName.substring(1);
-			if(fName.equalsIgnoreCase("OUT")) {
-				break;
-			}
 			
 			isValid= validate(fName);
 			if (!isValid) {
 				System.out.println("Sorry your input wasn't valid. Try that again");
-			}
-			else {
-			
+			}else {
 				System.out.println("Thanks " + fName + ", what is your family name ?");
-				sName = sc.nextLine();
-				if(sName.equalsIgnoreCase("OUT")) {
-					break;
-				}
-				isValid = validate(sName);
-				if (!isValid) {
-					System.out.println("Sorry your input wasn't valid. Try that again");
-				}
-				else { System.out.println("Thanks for that info, let's move on to your date of birth: ");
-					level=2;}
-				
+				level =2;
 			}
-		
-		
+			break;
+		case 2: // Last Name
+			sName = answer;
+			isValid = validate(sName);
+			if (!isValid) {
+				System.out.println("Sorry your input wasn't valid. Try that again");
+			}
+			else { System.out.println("Thanks for that info, let's move on to your date of birth: ");
+				level=3;
+				}
+			break;
+		case 3: // Date of birth
+			dob = answer;
+			if(false) {
+				// !dob.isValid TODO
+				System.out.println("Please enter a valid birth date");
+			}
+			else{
+			System.out.println("Thanks, if you had to describe your level of pain from 1 to 10 what would it be?");	
+			level =4;
+			}
+			break;
 			
+		case 4: // Amount of pain
+			pain = Integer.parseInt(answer); 
+			if(pain>10||pain<1) {
+				System.out.println("Please enter an integer from 1-10");
+			}else {	
+				level=5;
+				System.out.println("Can you give a brief description of your symptoms?");
+				}
+			break;
+		case 5: // Symptoms
+			symptomsSentence = answer;
+			level =6;
+			System.out.println("If you are having multiple symptoms, which is bothering you the most?");
+			break;
+		case 6: //Which is the worse symptom
+			worseSymptom = answer;
+			System.out.println("If you are having chest pains, trouble breathing, severe bleeding, or extreme dizziness, please stop using this bot and Call 911.");
+			System.out.println("How many days have you experienced these symptoms?");
+			level =7;
+			break;
+		case 7: // get duration of symptoms
+			durationOfSymptoms = Integer.parseInt(answer);
+			System.out.println("Okay. Would you prefer a male or female doctor?");
+			level =8;
+		case 8:// gets dr sex preference, please dont cancel me TODO remove <-
+			drSexPreference = answer;
+			if(!(drSexPreference.equalsIgnoreCase("male") || drSexPreference.equalsIgnoreCase("female"))) {
+				System.out.println("Please answer either male or female");
+			}else {
+				System.out.println("Sounds good. Do you have a family doctor?" );
+				level =9;		
+			}
+			break;
+		case 9: // branch for get family doctor
+			if(answer.equalsIgnoreCase("no")) {
+				level=10;
+				System.out.println("Okay. How many days have you experienced these symptoms?");
+			}else if(answer.equalsIgnoreCase("yes")) {
+				level =10;
+				System.out.println("What is your family doctors name?");
+			}
+			System.out.println();
+			break;
+		case 10: // get family doctors name
+			familyDoctor = answer;
+			if(!familyDoctor.toLowerCase().matches("dr.(.*)")) {
+				System.out.println("Please enter a valid family doctors name (Dr. ..)");
+			}else {
+				System.out.println("Thank you for using our service.");
+				conversation = false;
+				break;
+			}
+			System.out.println();
+			break;
+		case 11:// extra method in case we add more.
+			break;
+		case 30: // TODO Add more verfication 
+			if(answer.matches("(.*)2021")){ //if answer matches a date format go to level 3 
+				System.out.println("The appointment date has been verified. Thank you for confirming using our service.");
+					level++;
+					conversation = false;
+					break;
 			}
 			
-			
-		
-		
-		
-			
-			
-			
-
-			//go into level 2 of the conversation to get the age
-			
-			while (!answer.equalsIgnoreCase("OUT") && level==2) {
-				
-				answer = sc.nextLine(); //get an input
-				
-				
-				if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
-					break;
-				}
-				
-		// TODO : get the user date of birth 
-				dob = answer;
-			System.out.println("Thanks, what if you had to describe your level of pain from 1 to 10 what would it be ?");
-			
-			level++;
-			
-			
+			else {
+				System.out.println("please enter a valid date");
+			}
+			break;
 			
 		}
-			
-			
-			//go into level 3 of the conversation to get the level of pain(priority)
-			
-			while (!answer.equalsIgnoreCase("OUT") && level==3) {
-
-				
-				try {
-				pain = sc.nextInt(); }
-				catch( Exception e ){
-					System.out.println("Please enter an integer from 1-10");
-				}
-				
-				level++;
-				
-			
-		}
-			
-			//go into level 10 of the conversation if the appointment is already booked and give confirmation message
-			
-			while (!answer.equalsIgnoreCase("OUT") && level==10) {
-				
-				answer = sc.next(); //get an input
-				
-				
-				if (answer.equalsIgnoreCase("OUT")) { //if input is "out" break the loop
-					break;
-				}
-				
-				if(answer.matches("(.*)2021")){ //if answer matches a date format go to level 3 
-					System.out.println("The appointment date has been verified. Please verify your name:");
-						level++;
-						break;
-					
-				}
-				
-				else {
-					System.out.println("please enter a valid date");
-				}
-				
-				
-			}
 		
+	
 		//convo loop end
 		}
 		
