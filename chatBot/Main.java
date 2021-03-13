@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main extends synonymAPI   {
-	
-	
-	
+		
 	static PriorityQueue<patient> patientQ = new PriorityQueue<>();
 	static patient p1 = new patient("Jon","Jones","2020",2);
 	static patient p2 = new patient("Daniel","Cormier","2020",3);
@@ -545,9 +543,6 @@ public class Main extends synonymAPI   {
 		sc.close();
 		goodbye.close();
 		System.out.println("Goodbye :)");
-		
-		
-	
 
 }
 }
