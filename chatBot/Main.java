@@ -1,5 +1,5 @@
 package chatBot;
-
+import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -332,6 +332,9 @@ public class Main extends synonymAPI   {
 		int pain =0;
 		String dob ="";
 		boolean isValid= false;
+		String question = "do you have an appointent?";
+		JFrame f;
+		f = new JFrame();
 		String fName = "";
 		String sName= "";
 		String answer ="";
@@ -351,13 +354,14 @@ public class Main extends synonymAPI   {
 		
 		
 		
-		System.out.println("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
-		
+		//System.out.println("Hello, thanks for contacting our clinic (Type OUT to exit)");
+		JOptionPane.showMessageDialog(f, "Hello, thanks for contacting our clinic (Type OUT to exit)", "ChatBot", level);
 		// main conversation loop
 		while (conversation) {
-			answer = sc.nextLine();
+			answer = JOptionPane.showInputDialog(""+question+"");
 			
 			if(answer.equalsIgnoreCase("OUT")) {
+				level = -1;
 				break;
 			}
 			
@@ -366,9 +370,11 @@ public class Main extends synonymAPI   {
 		case 0:// this is the first level of conversation where we ask if the customer has an appointment 
 			// we iterate through all the words in the array of positives and if we have a match we go to level 1 
 			for(String positives:positive) {
+
 				
+
 				if (answer.matches("(.*)yes(.*)")||answer.matches("(.*)"+positives+"(.*)")){
-					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
+					JOptionPane.showInputDialog("Perfect what is your appointment date ? (DD/MM/YYYY)");
 					level=30;
 				break;
 				}
@@ -459,6 +465,7 @@ public class Main extends synonymAPI   {
 			catch (Exception e ){System.out.println("Sorry, something went wrong please enter the number of days again.");break;}
 			System.out.println("Okay. Would you prefer a male or female doctor?");
 			level =8;
+			break;
 			
 		case 8:// gets dr sex/gender preference
 			drSexPreference = answer;
@@ -527,14 +534,14 @@ public class Main extends synonymAPI   {
 		
 		review = sc.nextLine();
 		
-		for(String positives:positive) {
+		// for(String positives:positive) {
 			
-			if (review.matches("(.*)yes(.*)")||review.matches("(.*)"+positives+"(.*)")){
-				review();
-				review = "no";
-				break;
-			}
-		}
+		// 	if (review.matches("(.*)yes(.*)")||review.matches("(.*)"+positives+"(.*)")){
+		// 		review();
+		// 		review = "no";
+		// 		break;
+		// 	}
+		// }
 		
 		Scanner goodbye = new Scanner(System.in);
 		
