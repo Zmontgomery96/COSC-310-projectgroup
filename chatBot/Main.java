@@ -44,7 +44,7 @@ public class Main extends synonymAPI   {
 		yn = retrieveUserInput(0);
 		//yn = rev.nextLine();
 		
-		System.out.println("Thanks for participating in our review! Have you been here with us before today?");
+		botOutput("Thanks for participating in our review! Have you been here with us before today?");
 		
 		yn = rev.nextLine();
 		
@@ -349,17 +349,17 @@ public class Main extends synonymAPI   {
 		positive = synonyms("yes");
 		String[] negative = new String[50];
 		negative = synonyms("no");
-		
+		int x =0;
 		int level=0;
 		
 		
 		
-		System.out.println("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
+		botOutput("Hello, thanks for contacting our clinic, do you have an appointment booked already? (Type OUT to exit)");
 		
 		// main conversation loop
 		while (conversation) {
-			answer = sc.nextLine();
-			
+			answer = retrieveUserInput(x);
+			x++;
 			if(answer.equalsIgnoreCase("OUT")) {
 				break;
 			}
@@ -371,7 +371,7 @@ public class Main extends synonymAPI   {
 			for(String positives:positive) {
 				
 				if (answer.matches("(.*)yes(.*)")||answer.matches("(.*)"+positives+"(.*)")){
-					System.out.println("Perfect what is your appointment date ? (DD/MM/YYYY)");
+					botOutput("Perfect what is your appointment date ? (DD/MM/YYYY)");
 					level=30;
 				break;
 				}
@@ -380,10 +380,10 @@ public class Main extends synonymAPI   {
 			for(String negatives:negative) {
 						
 				if (answer.matches("(.*)no(.*)")||answer.matches("(.*)"+negatives+"(.*)")){
-					System.out.println("Sorry to hear that let's get you an appointment booked !");
+					botOutput("Sorry to hear that let's get you an appointment booked !");
 					
 					level =1;
-					System.out.println("Please enter your first name below: ");
+					botOutput("Please enter your first name below: ");
 					}
 					break;
 				}
@@ -396,9 +396,9 @@ public class Main extends synonymAPI   {
 			
 			isValid= validate(fName);
 			if (!isValid) {
-				System.out.println("Sorry your input wasn't valid. Try that again");
+				botOutput("Sorry your input wasn't valid. Try that again");
 			}else {
-				System.out.println("Thanks " + fName + ", what is your family name ?");
+				botOutput("Thanks " + fName + ", what is your family name ?");
 				level =2;
 				user.setFirst_name(fName);
 			}
@@ -408,9 +408,9 @@ public class Main extends synonymAPI   {
 			sName = answer;
 			isValid = validate(sName);
 			if (!isValid) {
-				System.out.println("Sorry your input wasn't valid. Try that again");
+				botOutput("Sorry your input wasn't valid. Try that again");
 			}
-			else { System.out.println("Thanks for that info, let's move on to your date of birth: ");
+			else { botOutput("Thanks for that info, let's move on to your date of birth: ");
 			user.setLast_name(sName);
 				level=3;
 				}
@@ -420,55 +420,56 @@ public class Main extends synonymAPI   {
 			dob = answer;
 			if(false) {
 				// !dob.isValid TODO: verify date of birth 
-				System.out.println("Please enter a valid birth date");
+				botOutput("Please enter a valid birth date");
 			}
 			else{
-			System.out.println("Thanks, if you had to describe your level of pain from 1 to 10 what would it be?");	
+				botOutput("Thanks, if you had to describe your level of pain from 1 to 10 what would it be?");	
 			user.setBirthdate(dob);
 			level =4;
+			break;
 			}
 			break;
 			
 		case 4: // Gets pain level
 		try{
 			pain = Integer.parseInt(answer); }
-			catch(Exception e ){System.out.println("Sorry, something went wrong please try again.");
+			catch(Exception e ){botOutput("Sorry, something went wrong please try again.");
 			break;}
 			if(pain>10||pain<1) {
-				System.out.println("Please enter an integer from 1-10");
+				botOutput("Please enter an integer from 1-10");
 			}else {	
 				user.setPriority(pain);
 				level=5;
-				System.out.println("Can you give a brief description of your symptoms?");
+				botOutput("Can you give a brief description of your symptoms?");
 				}
 			break;
 			
 		case 5: // Symptoms
 			symptomsSentence = answer;
 			level =6;
-			System.out.println("If you are having multiple symptoms, which is bothering you the most? (if not please type 'none')");
+			botOutput("If you are having multiple symptoms, which is bothering you the most? (if not please type 'none')");
 			break;
 			
 		case 6: //Which is the worse symptom
 			worseSymptom = answer;
-			System.out.println("If you are having chest pains, trouble breathing, severe bleeding, or extreme dizziness, please stop using this bot and Call 911.");
-			System.out.println("How many days have you experienced these symptoms?");
+			botOutput("If you are having chest pains, trouble breathing, severe bleeding, or extreme dizziness, please stop using this bot and Call 911.");
+			botOutput("How many days have you experienced these symptoms?");
 			level =7;
 			break;
 			
 		case 7: // get duration of symptoms
 		try{
 			durationOfSymptoms = Integer.parseInt(answer);}
-			catch (Exception e ){System.out.println("Sorry, something went wrong please enter the number of days again.");break;}
-			System.out.println("Okay. Would you prefer a male or female doctor?");
+			catch (Exception e ){botOutput("Sorry, something went wrong please enter the number of days again.");break;}
+			botOutput("Okay. Would you prefer a male or female doctor?");
 			level =8;
-			
+			break;
 		case 8:// gets dr sex/gender preference
 			drSexPreference = answer;
 			if(!(drSexPreference.matches("male(.*)") || drSexPreference.matches("female(.*)"))) {
-				System.out.println("Please answer either 'male' or 'female'");
+				botOutput("Please answer either 'male' or 'female'");
 			}else {	
-				System.out.println("Sounds good. Do you have a family doctor?" );
+				botOutput("Sounds good. Do you have a family doctor?" );
 				level =9;	
 			}
 			break;
@@ -476,32 +477,32 @@ public class Main extends synonymAPI   {
 		case 9: // branch for get family doctor if no family doctor end chat
 		
 			if(answer.matches("(.*)no(.*)")) {
-				System.out.println("Okay, thank you for specifying that. We have all of the information that we need.");
+				botOutput("Okay, thank you for specifying that. We have all of the information that we need.");
 				showListWith(user);
-				System.out.println("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
+				botOutput("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
 				conversation= false;
 				break;
 				
 			}
 			else if(answer.equalsIgnoreCase("yes")) {
 				level =10;
-				System.out.println("What is your family doctors name?");
+				botOutput("What is your family doctors name?");
 			}
-			System.out.println();
+			
 			break;
 			
 		case 10: // get family doctors name
 			familyDoctor = answer;
 			if(!familyDoctor.toLowerCase().matches("dr.(.*)")) {
-				System.out.println("Please enter a valid family doctors name (Dr. ..)");
+				botOutput("Please enter a valid family doctors name (Dr. ..)");
 			}else {
-				showListWith(user);
-				System.out.println("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
-				System.out.println("Thank you for using our service.");
+				//botOutput(showListWith(user));
+				botOutput("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
+				botOutput("Thank you for using our service.");
 					conversation= false;
 					break;
 			}
-			System.out.println();
+			
 			break;
 			
 		case 11:// extra method in case we add more.
@@ -509,43 +510,46 @@ public class Main extends synonymAPI   {
 			
 		case 30: // TODO: Add more verfication 
 			if(answer.matches("(.*)2021")){ //if answer matches a date format go to level 3 
-				System.out.println("The appointment date has been verified. Thank you for confirming using our service.");
+				botOutput("The appointment date has been verified. Thank you for confirming using our service.");
 					level++;
 					conversation = false;
 					break;
 			}else {
-				System.out.println("please enter a valid date");
+				botOutput("please enter a valid date");
 				}
 			break;
 			
 		//exit case
-			case -1 : System.out.println("Thank you for using our service.");
+			case -1 : botOutput("Thank you for using our service.");
 					conversation= false;break;
 		}
 
 		//conversation while-loop end
 		}	
 		
-		System.out.println("Would you like to participate in our quick service review and let us know how we did?");
+		botOutput("Would you like to participate in our quick service review and let us know how we did?");
 		
-		review = sc.nextLine();
+		answer = retrieveUserInput(x);
 		
 		for(String positives:positive) {
 			
-			if (review.matches("(.*)yes(.*)")||review.matches("(.*)"+positives+"(.*)")){
+			if (answer.matches("(.*)yes(.*)")||answer.matches("(.*)"+positives+"(.*)")){
 				review();
-				review = "no";
+				
+				//review = "no";
 				break;
 			}
+			else{
+				break;}
 		}
 		
 		Scanner goodbye = new Scanner(System.in);
 		
-		System.out.println("Chat has now ended. Thanks for the chat! Feel free to say thank you to our bot.");
+		botOutput("Chat has now ended. Thanks for the chat! Feel free to say thank you to our bot.");
 		end = goodbye.nextLine();
 		sc.close();
 		goodbye.close();
-		System.out.println("Goodbye :)");
+		botOutput("Goodbye :)");
 
 		
 		
