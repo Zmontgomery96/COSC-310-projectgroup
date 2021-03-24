@@ -2,18 +2,25 @@ package chatBot;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class gui extends JFrame{
 	
+	//Initializing variables here that will be used throughout various methods
 	int i = 0;
-	//String userText = "";
 	JTextField textField = new JTextField(50);
 	JFrame chat = new JFrame();
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
+	
+	/*The ArrayLists will store user input and predetermined bot output which varies
+	according to the input from the user
+	*/
 	ArrayList<String> user = new ArrayList<String>();
 	ArrayList<String> bot = new ArrayList<String>();
+	JTextArea ta = new JTextArea(38, 76);
+	
 	
 	public gui() {
 		//Creating initial defaults required for an operational JFrame
@@ -23,50 +30,87 @@ public class gui extends JFrame{
 		//Centering the window on the screen
 		chat.setLocationRelativeTo(null);
 		
+		//Formatting the bottom end of the GUI
 		JLabel sendLabel = new JLabel("Enter message here:");
 		JButton send = new JButton("SEND");
 		JButton clear = new JButton("CLEAR");
 		
+		//Action listener for when the "SEND" button is pressed
 		send.addActionListener( (e) -> {
 			send();
 		});
 		
+		//Action listener for when the "CLEAR" button is pressed
 		clear.addActionListener( (e) -> {
 			clear();
 		});
 		
+		//More formatting for the bottom end of the GUI
 		panel1.add(sendLabel);
 		panel1.add(textField);
 		panel1.add(send);
 		panel1.add(clear);
 		
-		JLabel label = new JLabel("BOT SAYS HI");
+		//Not allowing the textArea to be edited by the user
+		ta.setEditable(false);
 		
-		panel2.add(label);
+		//Adding scroll bars to the textArea which will come into view when they are required
+		JScrollPane scroll = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
+		
+		panel2.add(scroll);
+		
+		//Coding where each panel of variables will go on the GUI
 		chat.getContentPane().add(BorderLayout.SOUTH, panel1);
 		chat.getContentPane().add(BorderLayout.CENTER, panel2);
 		
+		//This helps with allowing the user to press enter in order to send their message
+		chat.getRootPane().setDefaultButton(send);
 		
+		//Setting everything visible to user and starting the cursor in the textField box immediately
 		chat.setVisible(true);
+		textField.requestFocusInWindow();
 	}
 	
 	private void send() {
+		//This prevents the user from sending empty messages
+		if(textField.getText().trim().equals("")) {
+			clear();
+			textField.requestFocusInWindow();
+			return;
+		}
+		
+		//Storing user input into our user ArrayList
 		user.add(textField.getText());
 		System.out.println(user.get(i));
 		
-		JLabel temp = new JLabel(user.get(i) + "\n");
-		panel2.add(temp);
-		
-		chat.getContentPane().add(BorderLayout.CENTER, panel2);
-		chat.setVisible(true);
-		
+		ta.setText(ta.getText() + " USER (Add name here later): " +  user.get(i) + "\n");
 		i++;
+		
+		//Clearing the textField box after the message has been sent
 		clear();
+		textField.requestFocusInWindow();
 	}
 	
 	private void clear() {
 		textField.setText("");
+	}
+	
+	//This method will specifically be used for easy integration into our already programmed 'chatbot'
+	public String retrieveUserInput(int index) {
+		String temp;
+		
+		temp = user.get(index);
+		return temp;
+	}
+	
+	//This allows user to press enter to send their message
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		if(key == KeyEvent.VK_ENTER) {
+			send();
+		}
 	}
 	
 	public static void main(String[] args) {
