@@ -10,7 +10,8 @@ public class gui extends JFrame{
 	//Initializing variables here that will be used throughout various methods
 	int botCounter = 0;
 	int i = 0;
-	JTextField textField = new JTextField(50);
+	static int i2 = 0;
+	static JTextField textField = new JTextField(50);
 	JFrame chat = new JFrame();
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
@@ -20,7 +21,7 @@ public class gui extends JFrame{
 	*/
 	static ArrayList<String> user = new ArrayList<String>();
 	static ArrayList<String> bot = new ArrayList<String>();
-	JTextArea ta = new JTextArea(38, 76);
+	static JTextArea ta = new JTextArea(38, 76);
 	
 	
 	public gui() {
@@ -90,6 +91,13 @@ public class gui extends JFrame{
 		
 		//Clearing the textField box after the message has been sent
 		clear();
+		textField.requestFocusInWindow();
+	}
+	
+	public static void botSend() {
+		ta.setText(ta.getText() + " BOT: " +  bot.get(i2) + "\n");
+		i2++;
+		
 		textField.requestFocusInWindow();
 	}
 	
