@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class gui extends JFrame{
 	
 	//Initializing variables here that will be used throughout various methods
+	int botCounter = 0;
 	int i = 0;
 	JTextField textField = new JTextField(50);
 	JFrame chat = new JFrame();
@@ -17,8 +18,8 @@ public class gui extends JFrame{
 	/*The ArrayLists will store user input and predetermined bot output which varies
 	according to the input from the user
 	*/
-	ArrayList<String> user = new ArrayList<String>();
-	ArrayList<String> bot = new ArrayList<String>();
+	static ArrayList<String> user = new ArrayList<String>();
+	static ArrayList<String> bot = new ArrayList<String>();
 	JTextArea ta = new JTextArea(38, 76);
 	
 	
@@ -97,11 +98,23 @@ public class gui extends JFrame{
 	}
 	
 	//This method will specifically be used for easy integration into our already programmed 'chatbot'
-	public String retrieveUserInput(int index) {
+	public static String retrieveUserInput(int index) {
 		String temp;
+		boolean tf = false;;
 		
-		temp = user.get(index);
-		return temp;
+		while(!tf) {
+			try {				
+				temp = user.get(index);
+				tf = true;
+				return temp;
+			} catch(IndexOutOfBoundsException e) {}
+		}
+		return null;
+	}
+	
+	public static void botOutput (String str) {
+		bot.add(str);
+		System.out.println(str);
 	}
 	
 	//This allows user to press enter to send their message

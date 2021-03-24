@@ -20,6 +20,7 @@ public class Main extends synonymAPI   {
 		int n = 0;
 		boolean correct = true;
 		boolean match[] = new boolean [30];
+		boolean tf = false;
 		String yn = "";
 		String answer = "";
 		
@@ -29,7 +30,7 @@ public class Main extends synonymAPI   {
 		String[] negative = new String[50];
 		negative = synonyms("no");
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner rev = new Scanner(System.in);
 		
 		for(int i = 0; i < match.length; i++) {
 			match[i] = false;
@@ -38,14 +39,14 @@ public class Main extends synonymAPI   {
 		//The while statement gives a way to escape our review method, however this has not been implemented yet
 		//This is considered preparation for a future build where we will optimize different aspects of this program, where this will be one of them.
 		while (!answer.equalsIgnoreCase("OUT")||!yn.equalsIgnoreCase("OUT")){
-			
-		System.out.println("Quick notice before we begin: Do you mind if we attach your personal information along with your review? (Yes to stay anonymous; No to allow us to associate this with your personal information");
-		yn = sc.nextLine();
 		
+		botOutput("Quick notice before we begin: Do you mind if we attach your personal information along with your review? (Yes to stay anonymous; No to allow us to associate this with your personal information");
+				yn = retrieveUserInput(0);
+		//yn = rev.nextLine();
 		
 		System.out.println("Thanks for participating in our review! Have you been here with us before today?");
 		
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 		
 		
 		//This while statement only allows the user to proceed to the next set of questions if they give a variation of yes or no that is accepted by our program.
@@ -54,7 +55,7 @@ public class Main extends synonymAPI   {
 			
 			if(!correct) {
 				System.out.println("Invalid input, try again.");
-				yn = sc.nextLine();
+				yn = rev.nextLine();
 			}
 				
 		for(String positives:positive) {
@@ -78,14 +79,14 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 		
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 		//We repeat this while statement multiple times to ensure the review method is given the answers that are required in specific places.
 		while(!match[n]) {
 			
 			if(!correct) {
 				System.out.println("Invalid input, try again.");
-				yn = sc.nextLine();
+				yn = rev.nextLine();
 			}
 				
 		for(String positives:positive) {
@@ -109,23 +110,23 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 		System.out.println("Are there any recommendations you'd like to make in order for us to make your experience better next time?");
 			
-		answer = sc.nextLine();
+		answer = rev.nextLine();
 			
 			
 		System.out.println("Were you able to accomplish what you came here to do today?");
 			
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 			
 		while(!match[n]) {
 				
 			if(!correct) {
 				System.out.println("Invalid input, try again.");
-				yn = sc.nextLine();
+				yn = rev.nextLine();
 			}
 				
 		for(String positives:positive) {
@@ -149,28 +150,28 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		answer = sc.nextLine();
+		answer = rev.nextLine();
 			
 		System.out.println("We'll be sure to take any suggestions into consideration!");
 		System.out.println("Did you feel you were safe while you were in our care?");
 			
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 		System.out.println("Do you mind explaining how or why you felt this way?");
 			
-		answer = sc.nextLine();
+		answer = rev.nextLine();
 			
 		System.out.println("Thank you for providing us with this information.");
 		System.out.println("Did it feel like you were talking with a real person today?");
 			
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 			
 		while(!match[n]) {
 				
 			if(!correct) {
 				System.out.println("Invalid input, try again.");
-				yn = sc.nextLine();
+				yn = rev.nextLine();
 			}
 				
 		for(String positives:positive) {
@@ -194,17 +195,17 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		answer = sc.nextLine();
+		answer = rev.nextLine();
 			
 		System.out.println("This \'bot\' thanks you for your cooperation! :)");
 		System.out.println("Do you have any general complaints at all from you experience here?");
 			
-		answer = sc.nextLine();
+		answer = rev.nextLine();
 			
 		System.out.println("Thank you for letting us know.");
 		System.out.println("We've reached near the halfway mark in this review. Would you like to continue?");
 			
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 			
 		//This response determines if the user would like to continue the survey. If they respond "no" or some variation this will allow the user to escape the survey and end the chat.
@@ -223,14 +224,14 @@ public class Main extends synonymAPI   {
 		System.out.println("Great! We'll continue on with the service review. You're almost done!");
 		System.out.println("Did you feel our information gathering process was efficient?");
 			
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 			
 		while(!match[n]) {
 				
 			if(!correct) {
 				System.out.println("Invalid input, try again.");
-				yn = sc.nextLine();
+				yn = rev.nextLine();
 			}
 				
 		for(String positives:positive) {
@@ -254,22 +255,22 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		answer = sc.nextLine();
+		answer = rev.nextLine();
 			
 		System.out.println("Would you be willing to rate us today? (Type OUT to exit)");
 			
-		yn = sc.nextLine();
+		yn = rev.nextLine();
 			
 		for(String positives:positive) {
 				
 			if (yn.matches("yes")||yn.matches("(.*)"+positives+"(.*)")){
 				System.out.println("Rate our service today on a scale of 1-10 (1 being poor and 10 being amazing)");
 					
-				answer = sc.nextLine();
+				answer = rev.nextLine();
 					
 				System.out.println("Are there any specific reasons you gave us the score you did today?");
 					
-				answer = sc.nextLine();
+				answer = rev.nextLine();
 				break;
 			}
 		}
@@ -282,8 +283,8 @@ public class Main extends synonymAPI   {
 		//This signifies the end of the review() method, where it will be exited accordingly
 		System.out.println("Thank you for participating in our service review! Do you have any last comments/suggestions you'd like to make?");
 			
-		answer = sc.nextLine();
-		sc.close();
+		answer = rev.nextLine();
+		rev.close();
 		return;
 	}
 		
@@ -323,6 +324,8 @@ public class Main extends synonymAPI   {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
+		
+		new gui();
 		
 		
 		// define the strings. TODO store data in csv instead of multiple strings

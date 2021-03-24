@@ -7,7 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 
-public class synonymAPI {
+public class synonymAPI extends gui{
 	
 	public static String[] synonyms(String word) {
 		String hold = "";
