@@ -40,8 +40,7 @@ public class Main extends synonymAPI   {
 		//This is considered preparation for a future build where we will optimize different aspects of this program, where this will be one of them.
 		while (!answer.equalsIgnoreCase("OUT")||!yn.equalsIgnoreCase("OUT")){
 		
-		botOutput("Quick notice before we begin: Do you mind if we attach your personal information along with your review? (Yes to stay anonymous; No to allow us to associate this with your personal information)");
-		botSend();		
+		botOutput("Quick notice before we begin: Do you mind if we attach your personal information along with your review? (Yes to stay anonymous; No to allow us to associate this with your personal information)");	
 		yn = retrieveUserInput(0);
 		//yn = rev.nextLine();
 		

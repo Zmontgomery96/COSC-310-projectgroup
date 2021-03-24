@@ -123,6 +123,8 @@ public class gui extends JFrame{
 	public static void botOutput (String str) {
 		bot.add(str);
 		System.out.println(str);
+		
+		botSend();
 	}
 	
 	//This allows user to press enter to send their message
