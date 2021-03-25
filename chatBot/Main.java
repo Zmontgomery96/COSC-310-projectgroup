@@ -370,7 +370,7 @@ public class Main extends synonymAPI   {
 			// we iterate through all the words in the array of positives and if we have a match we go to level 1 
 			for(String positives:positive) {
 				
-				if (answer.matches("(.*)yes(.*)")||answer.matches("(.*)"+positives+"(.*)")){
+				if (answer.toLowerCase().matches("(.*)yes(.*)")||answer.matches("(.*)"+positives+"(.*)")){
 					botOutput("Perfect what is your appointment date ? (DD/MM/YYYY)");
 					level=30;
 				break;
@@ -379,7 +379,7 @@ public class Main extends synonymAPI   {
 			// if we have a negative we go to level 0 and book an appointment 
 			for(String negatives:negative) {
 						
-				if (answer.matches("(.*)no(.*)")||answer.matches("(.*)"+negatives+"(.*)")){
+				if (answer.toLowerCase().matches("(.*)no(.*)")||answer.matches("(.*)"+negatives+"(.*)")){
 					botOutput("Sorry to hear that let's get you an appointment booked !");
 					
 					level =1;
