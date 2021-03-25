@@ -12,6 +12,7 @@ public class gui extends JFrame{
 	int i = 0;
 	static int i2 = 0;
 	static JTextField textField = new JTextField(50);
+	static String fName = "";
 	JFrame chat = new JFrame();
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
@@ -85,8 +86,11 @@ public class gui extends JFrame{
 		//Storing user input into our user ArrayList
 		user.add(textField.getText());
 		System.out.println(user.get(i));
-		
+		if(fName.length() != 0) {
+			ta.setText(ta.getText() + " USER ("+fName+"): " +  user.get(i) + "\n");
+		}else {
 		ta.setText(ta.getText() + " USER (Add name here later): " +  user.get(i) + "\n");
+		}
 		i++;
 		
 		//Clearing the textField box after the message has been sent
@@ -134,6 +138,10 @@ public class gui extends JFrame{
 		if(key == KeyEvent.VK_ENTER) {
 			send();
 		}
+	}
+	//Sets first name of patient for GUI
+	public void setName(String name) {
+		fName = name;
 	}
 	
 	public static void main(String[] args) {

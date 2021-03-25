@@ -1,6 +1,10 @@
 package chatBot;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.*;
 
 public class Main extends synonymAPI   {
@@ -316,6 +320,19 @@ public class Main extends synonymAPI   {
 				}
 		
 	}
+	public static boolean validBirthDate(String bDate) {
+		boolean valid = false;
+		
+		try {
+			LocalDate.parse(bDate, DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT));
+			valid = true;
+		} catch (DateTimeParseException e) {
+			e.printStackTrace();
+			valid = false;
+		}
+		return valid;
+	}
+	
 	/*
 		 * The point of this chatbot is to verify an appointment or book an appointment if no appointment is
 		 * present , levels of conversations are used to control the flow of conversation
@@ -325,7 +342,7 @@ public class Main extends synonymAPI   {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		new gui();
+		gui GUI = new gui();
 		
 		
 		// define the strings. TODO store data in csv instead of multiple strings
@@ -393,12 +410,12 @@ public class Main extends synonymAPI   {
 			fName = answer;
 			fName.trim();
 			fName = fName.substring(0, 1).toUpperCase() + fName.substring(1).toLowerCase();
-			
 			isValid= validate(fName);
 			if (!isValid) {
 				botOutput("Sorry your input wasn't valid. Try that again");
 			}else {
 				botOutput("Thanks " + fName + ", what is your family name ?");
+				GUI.setName(fName);
 				level =2;
 				user.setFirst_name(fName);
 			}
@@ -410,7 +427,7 @@ public class Main extends synonymAPI   {
 			if (!isValid) {
 				botOutput("Sorry your input wasn't valid. Try that again");
 			}
-			else { botOutput("Thanks for that info, let's move on to your date of birth: ");
+			else { botOutput("Thanks for that info, let's move on to your date of birth (dd/mm/yyyy): ");
 			user.setLast_name(sName);
 				level=3;
 				}
@@ -418,7 +435,7 @@ public class Main extends synonymAPI   {
 			
 		case 3: // Gets Date of birth
 			dob = answer;
-			if(false) {
+			if(!validBirthDate(dob)) {
 				// !dob.isValid TODO: verify date of birth 
 				botOutput("Please enter a valid birth date");
 			}
