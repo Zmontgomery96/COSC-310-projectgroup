@@ -7,6 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.*;
 
+import javax.swing.text.AbstractDocument.BranchElement;
+
+
+
 public class Main extends synonymAPI   {
 		
 	static PriorityQueue<patient> patientQ = new PriorityQueue<>();
@@ -327,7 +331,7 @@ public class Main extends synonymAPI   {
 
 		while(itr.hasNext()) {
 			counter++;
-			System.out.println("Week " + counter + ", Patient Name: "+patientQ.peek().getFirst_name()+", Patient Last Name:  "+patientQ.poll().getLast_name());
+			botOutput("Week " + counter + ", Patient Name: "+patientQ.peek().getFirst_name()+", Patient Last Name:  "+patientQ.poll().getLast_name());
 		}
 	}
 	
@@ -521,8 +525,8 @@ public class Main extends synonymAPI   {
 				botOutput("Okay, thank you for specifying that. We have all of the information that we need.");
 				showListWith(user);
 				botOutput("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
-				conversation= false;
-				break;
+				
+				level = -1;
 				
 			}
 			else if(answer.equalsIgnoreCase("yes")) {
@@ -537,11 +541,9 @@ public class Main extends synonymAPI   {
 			if(!familyDoctor.toLowerCase().matches("dr.(.*)")) {
 				botOutput("Please enter a valid family doctors name (Dr. ..)");
 			}else {
-				//botOutput(showListWith(user));
+				showListWith(user);
 				botOutput("Based on our conversation, I ranked you in the following order, please bring ID when you come in to the clinic.");
-				botOutput("Thank you for using our service.");
-					conversation= false;
-					break;
+				level = -1;
 			}
 			
 			break;
@@ -551,7 +553,7 @@ public class Main extends synonymAPI   {
 			
 		case 30: // TODO: Add more verfication 
 			if(answer.matches("(.*)2021")){ //if answer matches a date format go to level 3 
-				botOutput("The appointment date has been verified. Thank you for confirming using our service.");
+				botOutput("The appointment date has been verified.");
 					level++;
 					conversation = false;
 					break;
@@ -562,9 +564,10 @@ public class Main extends synonymAPI   {
 			
 		//exit case
 			case -1 : botOutput("Thank you for using our service.");
-					conversation= false;break;
+					conversation = false;
+					break;
 		}
-
+		
 		//conversation while-loop end
 		}	
 		

@@ -120,7 +120,7 @@ public class gui extends JFrame{
 				temp = user.get(index);
 				tf = true;
 				return temp;
-			} catch(IndexOutOfBoundsException e) {}
+			} catch(IndexOutOfBoundsException e) {System.out.println("Small error");}
 		}
 		return null;
 	}
