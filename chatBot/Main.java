@@ -13,6 +13,7 @@ public class Main extends synonymAPI   {
 	static patient p1 = new patient("Jon","Jones","2020",2);
 	static patient p2 = new patient("Daniel","Cormier","2020",3);
 	static patient p3 = new patient("Michael","Bisping","2020",4);
+	static int x = 0;
 
 	
 	//The review method allows the bot to ask the user many questions about their experience while differentiating between yes/no answers to specific questions
@@ -45,12 +46,14 @@ public class Main extends synonymAPI   {
 		while (!answer.equalsIgnoreCase("OUT")||!yn.equalsIgnoreCase("OUT")){
 		
 		botOutput("Quick notice before we begin: Do you mind if we attach your personal information along with your review? (Yes to stay anonymous; No to allow us to associate this with your personal information)");	
-		yn = retrieveUserInput(0);
+		yn = retrieveUserInput(x);
+		x++;
 		//yn = rev.nextLine();
 		
 		botOutput("Thanks for participating in our review! Have you been here with us before today?");
 		
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 		
 		
 		//This while statement only allows the user to proceed to the next set of questions if they give a variation of yes or no that is accepted by our program.
@@ -58,14 +61,15 @@ public class Main extends synonymAPI   {
 		while(!match[n]) {
 			
 			if(!correct) {
-				System.out.println("Invalid input, try again.");
-				yn = rev.nextLine();
+				botOutput("Invalid input, try again.");
+				yn = retrieveUserInput(x);
+				x++;
 			}
 				
 		for(String positives:positive) {
 				
 			if (yn.matches("(.*)yes(.*)")||yn.matches("(.*)"+positives+"(.*)")){
-				System.out.println("Great to hear! Do you think you'll come back?");
+				botOutput("Great to hear! Do you think you'll come back?");
 				match[n] = true;
 				break;
 			}
@@ -73,7 +77,7 @@ public class Main extends synonymAPI   {
 		for(String negatives:negative) {
 			
 			if (yn.matches("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
-				System.out.println("There's a first for everything! Do you think you'll come back?");
+				botOutput("There's a first for everything! Do you think you'll come back?");
 				match[n] = true;
 				break;
 			}
@@ -83,20 +87,22 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 		
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
 		//We repeat this while statement multiple times to ensure the review method is given the answers that are required in specific places.
 		while(!match[n]) {
 			
 			if(!correct) {
-				System.out.println("Invalid input, try again.");
-				yn = rev.nextLine();
+				botOutput("Invalid input, try again.");
+				yn = retrieveUserInput(x);
+				x++;
 			}
 				
 		for(String positives:positive) {
 				
 			if (yn.matches("yes")||yn.matches("(.*)"+positives+"(.*)")){
-				System.out.println("Awesome! Would you recommend our service to friends and family?");
+				botOutput("Awesome! Would you recommend our service to friends and family?");
 				match[n] = true;
 				break;
 			}
@@ -104,7 +110,7 @@ public class Main extends synonymAPI   {
 		for(String negatives:negative) {
 				
 			if (yn.matches("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
-				System.out.println("Oh no! ): Would you recommend our service to friends and family?");
+				botOutput("Oh no! ): Would you recommend our service to friends and family?");
 				match[n] = true;
 				break;
 			}
@@ -114,29 +120,33 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
-		System.out.println("Are there any recommendations you'd like to make in order for us to make your experience better next time?");
+		botOutput("Are there any recommendations you'd like to make in order for us to make your experience better next time?");
 			
-		answer = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
 			
-		System.out.println("Were you able to accomplish what you came here to do today?");
+		botOutput("Were you able to accomplish what you came here to do today?");
 			
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
 			
 		while(!match[n]) {
 				
 			if(!correct) {
-				System.out.println("Invalid input, try again.");
-				yn = rev.nextLine();
+				botOutput("Invalid input, try again.");
+				yn = retrieveUserInput(x);
+				x++;
 			}
 				
 		for(String positives:positive) {
 				
 			if (yn.matches("yes")||yn.matches("(.*)"+positives+"(.*)")){
-				System.out.println("Great! Is there any way we could make this easier the next time?");
+				botOutput("Great! Is there any way we could make this easier the next time?");
 				match[n] = true;
 				break;
 			}
@@ -144,7 +154,7 @@ public class Main extends synonymAPI   {
 		for(String negatives:negative) {
 				
 			if (yn.matches("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
-				System.out.println("Is there any way we could fix this for you?");
+				botOutput("Is there any way we could fix this for you?");
 				match[n] = true;
 				break;
 			}
@@ -154,34 +164,39 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		answer = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
-		System.out.println("We'll be sure to take any suggestions into consideration!");
-		System.out.println("Did you feel you were safe while you were in our care?");
+		botOutput("We'll be sure to take any suggestions into consideration!");
+		botOutput("Did you feel you were safe while you were in our care?");
 			
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
-		System.out.println("Do you mind explaining how or why you felt this way?");
+		botOutput("Do you mind explaining how or why you felt this way?");
 			
-		answer = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
-		System.out.println("Thank you for providing us with this information.");
-		System.out.println("Did it feel like you were talking with a real person today?");
+		botOutput("Thank you for providing us with this information.");
+		botOutput("Did it feel like you were talking with a real person today?");
 			
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
 			
 		while(!match[n]) {
 				
 			if(!correct) {
-				System.out.println("Invalid input, try again.");
-				yn = rev.nextLine();
+				botOutput("Invalid input, try again.");
+				yn = retrieveUserInput(x);
+				x++;
 			}
 				
 		for(String positives:positive) {
 				
 			if (yn.matches("yes")||yn.matches("(.*)"+positives+"(.*)")){
-				System.out.println("What made you feel this way?");
+				botOutput("What made you feel this way?");
 				match[n] = true;
 				break;
 			}
@@ -189,7 +204,7 @@ public class Main extends synonymAPI   {
 		for(String negatives:negative) {
 				
 			if (yn.matches("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
-				System.out.println("How can we improve this?");
+				botOutput("How can we improve this?");
 				match[n] = true;
 				break;
 			}
@@ -199,17 +214,20 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		answer = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
-		System.out.println("This \'bot\' thanks you for your cooperation! :)");
-		System.out.println("Do you have any general complaints at all from you experience here?");
+		botOutput("This \'bot\' thanks you for your cooperation! :)");
+		botOutput("Do you have any general complaints at all from you experience here?");
 			
-		answer = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
-		System.out.println("Thank you for letting us know.");
-		System.out.println("We've reached near the halfway mark in this review. Would you like to continue?");
+		botOutput("Thank you for letting us know.");
+		botOutput("We've reached near the halfway mark in this review. Would you like to continue?");
 			
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
 			
 		//This response determines if the user would like to continue the survey. If they respond "no" or some variation this will allow the user to escape the survey and end the chat.
@@ -225,23 +243,25 @@ public class Main extends synonymAPI   {
 			return;
 		}
 			
-		System.out.println("Great! We'll continue on with the service review. You're almost done!");
-		System.out.println("Did you feel our information gathering process was efficient?");
+		botOutput("Great! We'll continue on with the service review. You're almost done!");
+		botOutput("Did you feel our information gathering process was efficient?");
 			
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
 			
 		while(!match[n]) {
 				
 			if(!correct) {
-				System.out.println("Invalid input, try again.");
-				yn = rev.nextLine();
+				botOutput("Invalid input, try again.");
+				yn = retrieveUserInput(x);
+				x++;
 			}
 				
 		for(String positives:positive) {
 				
 			if (yn.matches("yes")||yn.matches("(.*)"+positives+"(.*)")){
-				System.out.println("Great! Do you have any suggestions for a more efficient method?");
+				botOutput("Great! Do you have any suggestions for a more efficient method?");
 				match[n] = true;
 				break;
 			}
@@ -249,7 +269,7 @@ public class Main extends synonymAPI   {
 		for(String negatives:negative) {
 				
 			if (yn.matches("(.*)no(.*)")||yn.matches("(.*)"+negatives+"(.*)")){
-				System.out.println("Do you have any suggestions to create a speedier experience for you next time?");
+				botOutput("Do you have any suggestions to create a speedier experience for you next time?");
 				match[n] = true;
 				break;
 			}
@@ -259,22 +279,26 @@ public class Main extends synonymAPI   {
 		n++;
 		correct = true;
 			
-		answer = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
-		System.out.println("Would you be willing to rate us today? (Type OUT to exit)");
+		botOutput("Would you be willing to rate us today? (Type OUT to exit)");
 			
-		yn = rev.nextLine();
+		yn = retrieveUserInput(x);
+		x++;
 			
 		for(String positives:positive) {
 				
 			if (yn.matches("yes")||yn.matches("(.*)"+positives+"(.*)")){
-				System.out.println("Rate our service today on a scale of 1-10 (1 being poor and 10 being amazing)");
+				botOutput("Rate our service today on a scale of 1-10 (1 being poor and 10 being amazing)");
 					
-				answer = rev.nextLine();
+				yn = retrieveUserInput(x);
+				x++;
 					
-				System.out.println("Are there any specific reasons you gave us the score you did today?");
+				botOutput("Are there any specific reasons you gave us the score you did today?");
 					
-				answer = rev.nextLine();
+				answer = retrieveUserInput(x);
+				x++;
 				break;
 			}
 		}
@@ -287,7 +311,8 @@ public class Main extends synonymAPI   {
 		//This signifies the end of the review() method, where it will be exited accordingly
 		System.out.println("Thank you for participating in our service review! Do you have any last comments/suggestions you'd like to make?");
 			
-		answer = rev.nextLine();
+		answer = retrieveUserInput(x);
+		x++;
 		rev.close();
 		return;
 	}
@@ -366,7 +391,6 @@ public class Main extends synonymAPI   {
 		positive = synonyms("yes");
 		String[] negative = new String[50];
 		negative = synonyms("no");
-		int x =0;
 		int level=0;
 		
 		
@@ -544,9 +568,38 @@ public class Main extends synonymAPI   {
 		//conversation while-loop end
 		}	
 		
+		//Catches users name here in order to use it in the GUI if it has not been specified already
+		boolean isNameValid = false;
+		
+		while(!isNameValid) {
+			if(fName.equals("")) {
+				botOutput("Please verify with us by telling us your first name.");
+				answer = retrieveUserInput(x);
+				
+				fName = answer;
+				fName.trim();
+				fName = fName.substring(0, 1).toUpperCase() + fName.substring(1).toLowerCase();
+				isValid= validate(fName);
+				
+				if (!isValid) {
+					botOutput("Sorry your input wasn't valid. Try that again");
+					fName = "";
+					x++;
+				}else {
+					botOutput("Thanks " + fName + ".");
+					GUI.setName(fName);
+					x++;
+					isNameValid = true;
+				}
+			
+			}
+		}
+		
+		
 		botOutput("Would you like to participate in our quick service review and let us know how we did?");
 		
 		answer = retrieveUserInput(x);
+		x++;
 		
 		for(String positives:positive) {
 			
@@ -560,12 +613,10 @@ public class Main extends synonymAPI   {
 				break;}
 		}
 		
-		Scanner goodbye = new Scanner(System.in);
-		
 		botOutput("Chat has now ended. Thanks for the chat! Feel free to say thank you to our bot.");
-		end = goodbye.nextLine();
+		end = retrieveUserInput(x);
+		x++;
 		sc.close();
-		goodbye.close();
 		botOutput("Goodbye :)");
 
 		

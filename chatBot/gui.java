@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class gui extends JFrame{
 	
@@ -127,6 +128,12 @@ public class gui extends JFrame{
 	public static void botOutput (String str) {
 		bot.add(str);
 		//System.out.println(str);
+		
+		try {
+            TimeUnit.MILLISECONDS.sleep(800);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 		
 		botSend();
 	}
