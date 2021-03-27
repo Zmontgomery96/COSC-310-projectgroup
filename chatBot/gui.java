@@ -86,7 +86,7 @@ public class gui extends JFrame{
 		
 		//Storing user input into our user ArrayList
 		user.add(textField.getText());
-		System.out.println(user.get(i));
+		//System.out.println(user.get(i));
 		if(fName.length() != 0) {
 			ta.setText(ta.getText() + " USER ("+fName+"): " +  user.get(i) + "\n");
 		}else {
@@ -120,7 +120,7 @@ public class gui extends JFrame{
 				temp = user.get(index);
 				tf = true;
 				return temp;
-			} catch(IndexOutOfBoundsException e) {System.out.println("Small error");}
+			} catch(IndexOutOfBoundsException e) {}
 		}
 		return null;
 	}

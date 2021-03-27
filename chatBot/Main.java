@@ -567,10 +567,8 @@ public class Main extends synonymAPI   {
 					conversation = false;
 					break;
 		}
-		
 		//conversation while-loop end
 		}	
-		
 		//Catches users name here in order to use it in the GUI if it has not been specified already
 		boolean isNameValid = false;
 		
@@ -594,13 +592,15 @@ public class Main extends synonymAPI   {
 					x++;
 					isNameValid = true;
 				}
+				
 			
+			}
+			else {
+				isNameValid = true;
 			}
 		}
 		
-		
 		botOutput("Would you like to participate in our quick service review and let us know how we did?");
-		
 		answer = retrieveUserInput(x);
 		x++;
 		
