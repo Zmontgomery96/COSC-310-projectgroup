@@ -20,20 +20,20 @@ There is a review at the end to see how the user liked the bot if they wish to p
 List of features:
 
 
-    a synonym API 
-        The API allows us to throw what the user puts in into something that decodes it and relates it to whether or not the response is positive or negative to the question. Without this it would be loads more coding to account for whatever the user inputs or writing every response they can put in at each point. 
-        
-        ![](images/Showing_API.png)
+a synonym API 
+    The API allows us to throw what the user puts in into something that decodes it and relates it to whether or not the response is positive or negative to the question. Without this it would be loads more coding to account for whatever the user inputs or writing every response they can put in at each point. 
+
+![](images/ShowingAPI.png)
 
 
-    GUI
-        This allows the user to see the inputs that they already put in in a box display. Including this makes the bot more easily understood. Being able to see what was already put in without the use of the console allows the user an informed decision if they forgot what was asked before. 
+GUI
+     This allows the user to see the inputs that they already put in in a box display. Including this makes the bot more easily understood. Being able to see what was already put in without the use of the console allows the user an informed decision if they forgot what was asked before. 
 
-    review process(not on official list)
-        Though not formally on the assignment features this would in theory help us gather what parts of the bot are working or not for the users. With feedback we could then sift through it and figure out what works best and what doesnt work. 
+review process(not on official list)
+     Though not formally on the assignment features this would in theory help us gather what parts of the bot are working or not for the users. With feedback we could then sift through it and figure out what works best and what doesnt work. 
 
-    spell checking inputs
-        This is included with the API. Now if the user accidentally adds a character they did not want the bot will still recognize the response. 
+spell checking inputs
+    This is included with the API. Now if the user accidentally adds a character they did not want the bot will still recognize the response. 
 
 
     
