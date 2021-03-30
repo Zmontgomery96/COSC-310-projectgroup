@@ -10,7 +10,7 @@ public class gui extends JFrame{
 	
 	//Initializing variables here that will be used throughout various methods
 	int botCounter = 0;
-	int i = 0;
+	static int i = 0;
 	static int i2 = 0;
 	static JTextField textField = new JTextField(50);
 	static String fName = "";
@@ -76,12 +76,12 @@ public class gui extends JFrame{
 		textField.requestFocusInWindow();
 	}
 	
-	private void send() {
+	static boolean send() {
 		//This prevents the user from sending empty messages
 		if(textField.getText().trim().equals("")) {
 			clear();
 			textField.requestFocusInWindow();
-			return;
+			return false;
 		}
 		
 		//Storing user input into our user ArrayList
@@ -97,6 +97,7 @@ public class gui extends JFrame{
 		//Clearing the textField box after the message has been sent
 		clear();
 		textField.requestFocusInWindow();
+		return true;
 	}
 	
 	public static void botSend() {
@@ -106,7 +107,7 @@ public class gui extends JFrame{
 		textField.requestFocusInWindow();
 	}
 	
-	private void clear() {
+	static void clear() {
 		textField.setText("");
 	}
 	
