@@ -20,6 +20,12 @@ public class BotTest {
 		main = new Main();
 	}
 	
+	 //Tests that user input is correctly read and stored
+	@Test 
+	public void testRetrieveUserInput() {
+		gui.user.add("This string is pushed then retrieved");
+		assertEquals("This string is pushed then retrieved",gui.retrieveUserInput(1));
+	}
 	// Date validation method
 	@Test
 	 public void testValidBirthDate() {
@@ -27,13 +33,8 @@ public class BotTest {
 		assertEquals(false, Main.validBirthDate("02/0/2021"));
 
 	 }
-	 //Tests that user input is correctly read and stored
-	@Test
-	public void testRetrieveUserInput() {
-		
-		gui.user.add("This string is pushed then retrieved");
-		assertEquals("This string is pushed then retrieved",gui.retrieveUserInput(0));
-	}
+	
+	
 	// Tests that an empty message would result in a false result
 	@Test
 	public void testSend() {
