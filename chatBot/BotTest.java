@@ -30,7 +30,9 @@ public class BotTest {
 	 //Tests that user input is correctly read and stored
 	@Test
 	public void testRetrieveUserInput() {
-		assertEquals("Hello",gui.retrieveUserInput(0));
+		
+		gui.user.add("This string is pushed then retrieved");
+		assertEquals("This string is pushed then retrieved",gui.retrieveUserInput(0));
 	}
 	// Tests that an empty message would result in a false result
 	@Test
