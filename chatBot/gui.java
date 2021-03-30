@@ -100,11 +100,12 @@ public class gui extends JFrame{
 		return true;
 	}
 	
-	public static void botSend() {
+	public static boolean botSend() {
 		ta.setText(ta.getText() + " BOT: " +  bot.get(i2) + "\n");
 		i2++;
 		
 		textField.requestFocusInWindow();
+		return true;
 	}
 	
 	static void clear() {
@@ -126,7 +127,7 @@ public class gui extends JFrame{
 		return null;
 	}
 	
-	public static void botOutput (String str) {
+	public static boolean botOutput (String str) {
 		bot.add(str);
 		//System.out.println(str);
 		
@@ -136,7 +137,7 @@ public class gui extends JFrame{
             e.printStackTrace();
         }
 		
-		botSend();
+		return botSend();
 	}
 	
 	//This allows user to press enter to send their message

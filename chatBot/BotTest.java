@@ -51,6 +51,21 @@ public class BotTest {
 		patient p = new patient();
 		assertEquals(true, main.showListWith(p));
 	}
-	
+
+	//botsend
+	@Test
+	public void testBotSend() {
+		gui.botOutput("test");
+
+		assertEquals(gui.ta.getText(), " USER (Add name here later): This is a test, and since it's not empty it will return true\n"
+				+ " BOT: test\n");
+	}
+	//botoutput
+	@Test
+	public void testBotOutput() {
+		assertTrue(gui.botOutput("Test"));
+		assertTrue(gui.bot.contains("Test"));
+		
+	}
 
 }
