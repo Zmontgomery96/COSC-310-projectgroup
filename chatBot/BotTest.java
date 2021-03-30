@@ -46,6 +46,11 @@ public class BotTest {
 		assertEquals(true, Main.validate("Anthony"));
 		assertEquals(false, Main.validate("A"));
 	}
+	@Test
+	public void testShowListWith() {
+		patient p = new patient();
+		assertEquals(true, main.showListWith(p));
+	}
 	
 
 }

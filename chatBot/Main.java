@@ -321,7 +321,10 @@ public class Main extends synonymAPI   {
 		return;
 	}
 		
-	static void showListWith(patient p){
+	static boolean showListWith(patient p){
+		if(p.toString()==null){
+			return false;
+		}
 		int counter = 0;
 		patientQ.add(p1);
 		patientQ.add(p2);
@@ -333,6 +336,7 @@ public class Main extends synonymAPI   {
 			counter++;
 			botOutput("Week " + counter + ", Patient Name: "+patientQ.peek().getFirst_name()+", Patient Last Name:  "+patientQ.poll().getLast_name());
 		}
+		return true;
 	}
 	
 	static boolean validate(String first) {
