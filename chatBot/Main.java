@@ -313,7 +313,7 @@ public class Main extends synonymAPI   {
 			
 			
 		//This signifies the end of the review() method, where it will be exited accordingly
-		System.out.println("Thank you for participating in our service review! Do you have any last comments/suggestions you'd like to make?");
+		botOutput("Thank you for participating in our service review! Do you have any last comments/suggestions you'd like to make?");
 			
 		answer = retrieveUserInput(x);
 		x++;
@@ -625,4 +625,6 @@ public class Main extends synonymAPI   {
 		
 		
 }
+
+	public static Object validate;
 }
