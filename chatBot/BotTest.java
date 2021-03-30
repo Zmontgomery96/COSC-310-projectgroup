@@ -46,12 +46,16 @@ public class BotTest {
 		assertEquals(true, Main.validate("Anthony"));
 		assertEquals(false, Main.validate("A"));
 	}
+	// If the user name is null this method will return false,
+	// if the user has a valid name it will return true
 	@Test
 	public void testShowListWith() {
 		patient p = new patient();
+		p.setFirst_name("User");
 		assertEquals(true, main.showListWith(p));
+		patient q = new patient();
+		assertEquals(false, main.showListWith(q));
 	}
-
 	//botsend
 	@Test
 	public void testBotSend() {

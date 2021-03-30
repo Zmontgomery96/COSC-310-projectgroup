@@ -322,7 +322,7 @@ public class Main extends synonymAPI   {
 	}
 		
 	static boolean showListWith(patient p){
-		if(p.toString()==null){
+		if(p.getFirst_name()==null){
 			return false;
 		}
 		int counter = 0;
