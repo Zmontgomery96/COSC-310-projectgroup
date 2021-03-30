@@ -19,15 +19,16 @@ public class BotTest {
 	public void setUp() throws Exception {
 		main = new Main();
 	}
+	
 	// Date validation method
-	 @Test
+	@Test
 	 public void testValidBirthDate() {
 		assertEquals(true, Main.validBirthDate("02/02/2021"));
 		assertEquals(false, Main.validBirthDate("02/0/2021"));
 
 	 }
 	 //Tests that user input is correctly read and stored
-	 @Test
+	@Test
 	public void testRetrieveUserInput() {
 		assertEquals("Hello",gui.retrieveUserInput(0));
 	}
@@ -57,8 +58,7 @@ public class BotTest {
 	public void testBotSend() {
 		gui.botOutput("test");
 
-		assertEquals(gui.ta.getText(), " USER (Add name here later): This is a test, and since it's not empty it will return true\n"
-				+ " BOT: test\n");
+		assertEquals(gui.ta.getText()," BOT: test\n");
 	}
 	//botoutput
 	@Test
