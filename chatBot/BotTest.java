@@ -60,9 +60,9 @@ public class BotTest {
 	//botsend
 	@Test
 	public void testBotSend() {
-		gui.botOutput("test");
+		gui.botOutput("testBotSend");
 
-		assertEquals(gui.ta.getText()," BOT: test\n");
+		assertTrue(gui.ta.getText().contains("testBotSend"));
 	}
 	//botoutput
 	@Test
