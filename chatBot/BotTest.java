@@ -34,7 +34,10 @@ public class BotTest {
 	// Tests that an empty message would result in a false result
 	@Test
 	public void testSend() {
-		gui.botOutput("test");
+		gui.textField.setText("This is a test, and since it's not empty it will return true");
+		assertEquals(true, gui.send());
+		//This will not send and return false since it is empty
+		gui.textField.setText("");
 		assertEquals(false, gui.send());
 	}
 	// Tests that name is of a valid format
